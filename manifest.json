@@ -1,0 +1,12 @@
+{
+  "name": "Nurlan Home",
+  "short_name": "Nurlan Home",
+  "description": "Ev üçün ağıllı iqlim monitorinqi",
+  "lang": "az",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1224",
+  "theme_color": "#0b1224",
+  "icons": []
+}
