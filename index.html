@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1224">
+<link rel="manifest" href="./manifest.json">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+window.NURLAN_SUPABASE_URL = "https://xqcmqsajcibywttlmxny.supabase.co";
+window.NURLAN_SUPABASE_KEY = "sb_publishable_2StXP3DE2Sccf8OPLgFZPw_xM5dYDiM";
+</script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="Redmi Pad 2 ilə üç Xiaomi BLE temperatur sensorunu canlı izləmək üçün Nurlan Home.">
+<title>Nurlan Home · BLE Multi Sensor</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1224;--panel:#131e35;--panel2:#1a2944;--line:#2a3a58;--text:#eff5ff;--muted:#9aacc8;--mint:#75f0c4;--blue:#91b4ff;--orange:#ffc27f;--red:#ff819a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#24345a 0,transparent 42%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,select{font:inherit}button{cursor:pointer;touch-action:manipulation}.wrap{max-width:1180px;margin:auto;padding:clamp(14px,3vw,30px)}header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--mint),var(--blue));display:grid;place-items:center;color:#0b1224;font-size:24px;font-weight:950}.brand h1{font-size:19px;letter-spacing:.3px;margin:0}.brand p{font-size:12px;color:var(--muted);margin:2px 0 0}.version{border:1px solid #356957;background:#112d2a;color:var(--mint);border-radius:12px;padding:9px 12px;font-size:12px;font-weight:800}.intro{padding:28px 0 20px}.eyebrow{color:var(--mint);font-size:11px;letter-spacing:2px;font-weight:900}.intro h2{font-size:clamp(27px,5vw,44px);line-height:1.1;letter-spacing:-1.2px;margin:10px 0}.intro p{color:var(--muted);max-width:720px;margin:0}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:1px solid var(--line);border-radius:13px;padding:12px 16px;background:var(--panel2);color:var(--text);font-weight:750;min-height:46px}.btn.primary{border:0;background:linear-gradient(110deg,var(--mint),var(--blue));color:#0b1424}.btn:disabled{opacity:.45;cursor:not-allowed}.statusbox{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);background:#111b30;border-radius:16px;padding:14px 16px;margin:10px 0 22px}.statusdot{width:9px;height:9px;border-radius:50%;background:var(--orange);margin-top:7px;flex:none}.statusbox strong{font-size:13px}.statusbox p{margin:3px 0 0;color:var(--muted);font-size:12px}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:24px 0 12px}.sectionhead h3{font-size:18px;margin:0}.sectionhead p{font-size:12px;color:var(--muted);margin:3px 0 0}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.sensor{min-width:0;border:1px solid var(--line);border-radius:20px;padding:18px;background:linear-gradient(145deg,#182642,#111b30);box-shadow:0 16px 40px #0002}.sensortop{display:flex;align-items:center;justify-content:space-between;gap:8px}.roomicon{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:#263858;font-size:21px}.pill{border:1px solid #4a4050;border-radius:99px;padding:5px 9px;font-size:10px;color:var(--orange);white-space:nowrap}.pill.live{border-color:#326956;color:var(--mint);background:#102d29}.roomselect{display:block;width:100%;margin-top:13px;background:#0e182c;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px}.device{font-size:11px;color:var(--muted);overflow-wrap:anywhere;margin-top:10px;min-height:17px}.macbox{margin-top:9px}.macbox label{display:block;font-size:10px;color:var(--muted);margin-bottom:4px}.macbox input{width:100%;background:#0e182c;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px;font:12px/1.3 ui-monospace,monospace}.temp{font-size:clamp(34px,4vw,45px);font-weight:850;letter-spacing:-1.5px;margin:10px 0 0}.temp small{font-size:16px;letter-spacing:0;color:var(--muted)}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.stat{background:#0e182c;border:1px solid #243550;border-radius:12px;padding:10px}.stat span{display:block;font-size:10px;color:var(--muted)}.stat b{font-size:16px}#batt0,#batt1,#batt2{font-size:12px!important;letter-spacing:-.2px;white-space:nowrap}.footline{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:14px;padding-top:12px;color:var(--muted);font-size:10px}.sensor .btn{width:100%;margin-top:14px}.history{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:17px;margin-top:14px}.historyhead{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.historyhead h3{margin:0;font-size:16px}.historyhead p{margin:3px 0 0;color:var(--muted);font-size:11px}.legend{display:flex;flex-wrap:wrap;gap:9px 16px;margin-top:14px;color:var(--muted);font-size:11px}.legend span{display:inline-flex;align-items:center;gap:7px}.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none}.chartgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.chartcard{border:1px solid var(--line);background:#0e182c;border-radius:14px;padding:13px;min-width:0}.chartcard h4{font-size:12px;margin:0 0 8px}.chartcard canvas{display:block;width:100%;height:210px}.chartnote{font-size:10px;color:var(--muted);margin-top:7px}.toolsgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.toolcard{border:1px solid var(--line);border-radius:16px;padding:15px;background:#111b30;min-width:0}.toolcard h3{font-size:15px;margin:0 0 5px}.toolcard p{font-size:11px;color:var(--muted);margin:0 0 12px}.toolrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.toolrow label{font-size:12px;color:var(--muted)}.toolrow input,.toolrow select{min-width:0;background:#0e182c;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:10px}.toolrow input[type=number]{width:90px}.metricgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}.metric{background:#0e182c;border:1px solid #243550;border-radius:12px;padding:12px}.metric span{display:block;color:var(--muted);font-size:10px}.metric b{font-size:20px;display:block;margin-top:3px}.metric small{font-size:10px;color:var(--muted)}.alertlist{display:grid;gap:7px;margin-top:10px}.alertitem{border-radius:10px;padding:10px;background:#182642;border:1px solid var(--line);font-size:12px}.alertitem.warn{border-color:#735b37}.alertitem.bad{border-color:#79404e}.rangebtn{border:1px solid var(--line);background:#0e182c;color:var(--muted);border-radius:9px;padding:8px 12px;font-size:12px}.rangebtn.active{background:#24453f;color:var(--mint);border-color:#326956}.mutednote{font-size:10px;color:var(--muted);margin-top:9px}.tablewrap{overflow:auto;margin-top:12px}table{width:100%;border-collapse:collapse;min-width:540px;font-size:12px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:650}td{font-variant-numeric:tabular-nums}.empty{padding:20px 8px;text-align:center;color:var(--muted);font-size:12px}.help{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}.help article{border:1px solid var(--line);border-radius:15px;padding:14px;background:#111b30}.help b{font-size:12px}.help p{font-size:11px;color:var(--muted);margin:5px 0 0}.footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#7f91b0;font-size:10px;padding:20px 2px}.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,150%);opacity:0;transition:.25s;background:#eafff7;color:#10271f;border-radius:13px;padding:12px 16px;box-shadow:0 12px 35px #0008;font-weight:750;font-size:13px;z-index:10;max-width:calc(100vw - 28px)}.toast.show{transform:translate(-50%,0);opacity:1}
+@media(max-width:850px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.help{grid-template-columns:1fr}.toolsgrid{grid-template-columns:1fr}}@media(max-width:560px){.metricgrid{grid-template-columns:1fr 1fr}.chartgrid{grid-template-columns:1fr}.chartcard canvas{height:190px}.wrap{padding:15px}.cards{grid-template-columns:1fr}.sensor{padding:16px}.intro{padding-top:25px}.version{width:100%}.sectionhead{align-items:start;flex-direction:column}.stats{grid-template-columns:1fr 1fr}}
+
+.roommap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}.roomtile{border:1px solid var(--line);border-radius:14px;padding:13px;background:#15223a}.roomtile.good{border-color:#36745f;background:#112d2a}.roomtile.warn{border-color:#926b3b;background:#302719}.roomtile.bad{border-color:#8d4354;background:#321c2a}.roomtile h4{margin:0 0 7px;font-size:13px}.roomtile strong{font-size:24px}.roomtile p{margin:4px 0;color:var(--muted);font-size:12px}.healthlist,.forecastlist{display:grid;gap:8px;margin-top:12px}.healthrow,.forecastrow{padding:10px;border:1px solid var(--line);border-radius:10px;font-size:13px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.answerbox{margin-top:12px;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0e182c;white-space:pre-wrap;font-size:13px;min-height:46px}.quickquestions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.quickquestions .btn{font-size:11px;min-height:34px;padding:6px 9px}.night-mode{filter:brightness(.72)}.status-good{color:var(--mint)}.status-warn{color:var(--orange)}.status-bad{color:var(--red)}@media(max-width:720px){.roommap{grid-template-columns:1fr}}
+
+/* JARVIS command-center layer */
+.jarvis{margin:4px 0 28px;border:1px solid #31496a;border-radius:28px;overflow:hidden;background:radial-gradient(circle at 50% 0%,#17385a 0,transparent 43%),linear-gradient(145deg,#081426,#0c1b31 65%,#101b2c);box-shadow:0 24px 80px #0005}.j-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:19px 21px;border-bottom:1px solid #263d5b}.j-brand{display:flex;gap:12px;align-items:center}.j-mark{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:1px solid #70e6e0;color:#8bfff0;box-shadow:0 0 24px #42e5dc44;font-weight:900;letter-spacing:1px}.j-kicker{font-size:10px;letter-spacing:2.4px;color:#7df7e2;font-weight:900}.j-sub{font-size:11px;color:#8da9c8}.j-live{font-size:10px;color:#82f6c7;border:1px solid #245a52;background:#0b292a;padding:7px 10px;border-radius:99px}.j-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr);gap:18px;padding:18px}.j-scene{position:relative;min-height:330px;border:1px solid #263e5c;border-radius:22px;background:radial-gradient(ellipse at 50% 45%,#123253,#091528 68%);overflow:hidden;padding:16px}.j-scene:before{content:"LIVE ENVIRONMENT MODEL";position:absolute;top:15px;left:17px;color:#6e9ab8;letter-spacing:2px;font-size:9px}.j-scene:after{content:"NURLAN HOME / SPATIAL CORE";position:absolute;bottom:13px;left:17px;color:#4d7293;letter-spacing:1.6px;font-size:8px}.j-floor{position:absolute;inset:50px 20px 30px;display:grid;grid-template-columns:1fr 1.15fr;grid-template-rows:1fr 1fr;gap:7px;transform:perspective(800px) rotateX(9deg) rotateZ(-2deg);filter:drop-shadow(0 15px 20px #0007)}.j-room{position:relative;min-width:0;border:1px solid #397c92;background:linear-gradient(145deg,#173d59dd,#10253bdd);clip-path:polygon(0 0,100% 0,100% 100%,0 100%);color:#dffaff;text-align:left;padding:12px;display:flex;flex-direction:column;justify-content:space-between;transition:.25s;box-shadow:inset 0 0 35px #36d4e21a}.j-room:nth-child(2){background:linear-gradient(145deg,#21465add,#15253bdd);border-color:#688bd4}.j-room:nth-child(3){background:linear-gradient(145deg,#164d4bdd,#102a38dd);border-color:#42bca8}.j-room:hover,.j-room.selected{outline:2px solid #78fff0;box-shadow:inset 0 0 45px #49e6df33,0 0 18px #41d8df30;transform:translateY(-2px)}.j-room .room-symbol{font-size:21px;filter:drop-shadow(0 0 8px #6cf7ec66)}.j-room b{font-size:12px}.j-room small{font-size:10px;color:#9fc5dc}.j-room strong{font-size:clamp(18px,3vw,27px);letter-spacing:-1px}.j-room em{font-style:normal;font-size:10px;color:#8ef5d8}.j-hall{position:absolute;left:46%;top:43%;width:9%;height:18%;background:#0a1c30;border:1px dashed #447c99;z-index:2;pointer-events:none}.j-room .j-glow{position:absolute;width:70px;height:70px;border-radius:50%;background:#4ae4e2;filter:blur(30px);opacity:.13;right:-15px;top:20px;pointer-events:none}.j-side{display:flex;flex-direction:column;gap:12px}.j-orb-card{border:1px solid #294565;border-radius:22px;padding:17px;background:linear-gradient(160deg,#10243c,#0b1729);text-align:center;flex:1}.j-orb{width:112px;height:112px;margin:5px auto 13px;border-radius:50%;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 40% 35%,#b7fff7,#46b7cf 19%,#1a5785 42%,#0c2343 67%,#091528 70%);box-shadow:0 0 25px #43d6e866,inset 0 0 25px #9cfff744;animation:jorb 5s ease-in-out infinite}.j-orb:before,.j-orb:after{content:"";position:absolute;border:1px solid #6cf6ed88;border-radius:50%;inset:-8px;transform:rotateX(65deg) rotateZ(20deg)}.j-orb:after{inset:-15px;transform:rotateX(68deg) rotateZ(-30deg);border-color:#7ea9ff66}.j-orb span{font-size:20px;letter-spacing:3px;color:#eaffff;text-shadow:0 0 15px #6efff5;font-weight:900}.j-orb.listening{animation:jorb .7s ease-in-out infinite;box-shadow:0 0 42px #79fff5}.j-orb-card h3{margin:0;font-size:16px}.j-orb-card p{font-size:11px;color:#9bb4cf;margin:5px 0 12px}.j-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.j-btn{border:1px solid #345477;background:#142b46;color:#dff9ff;border-radius:11px;padding:10px 12px;font-size:11px;font-weight:800}.j-btn.main{background:linear-gradient(100deg,#78f1d1,#78c6ff);color:#06172a;border:0}.j-status{border:1px solid #263e5a;border-radius:16px;padding:13px 14px;background:#0b182b}.j-status strong{font-size:11px}.j-status p{font-size:11px;color:#9bb1ca;margin:5px 0 0}.j-lower{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 18px 18px}.j-panel{border:1px solid #263e5a;background:#0c192b;border-radius:18px;padding:15px;min-width:0}.j-panel h3{font-size:13px;margin:0 0 9px}.j-chat{height:135px;overflow:auto;font-size:12px;color:#b9cce1;display:flex;flex-direction:column;gap:8px}.j-msg{padding:9px 11px;border-radius:12px;background:#132942;max-width:95%;align-self:flex-start}.j-msg.user{align-self:flex-end;background:#183e48;color:#c7fff2}.j-askrow{display:flex;gap:7px;margin-top:10px}.j-askrow input{min-width:0;flex:1;background:#071426;border:1px solid #2b4461;border-radius:10px;padding:10px;color:#e8f7ff;font:12px system-ui}.j-quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.j-quick button{font-size:10px;border:1px solid #2c4665;color:#a9d5e7;background:#10233a;border-radius:99px;padding:7px 9px}.j-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.j-mini div{padding:10px 8px;border-radius:12px;background:#12243a}.j-mini span{display:block;color:#8ba9c6;font-size:9px}.j-mini b{display:block;font-size:16px;margin-top:4px}.j-note{padding:0 18px 16px;color:#6887a7;font-size:10px}.j-note strong{color:#8cb7cf}@keyframes jorb{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}@media(max-width:760px){.j-grid{grid-template-columns:1fr;padding:12px}.j-lower{grid-template-columns:1fr;padding:0 12px 12px}.j-scene{min-height:315px}.j-floor{inset:52px 12px 30px}.j-room{padding:8px}.j-room b{font-size:10px}.j-room small{font-size:9px}.j-room .room-symbol{font-size:18px}.j-top{padding:15px}.j-mini b{font-size:14px}}
+
+/* HOME TIME MACHINE: explain and replay the home's environmental story */
+.tm{margin:20px 0;border:1px solid #35516c;border-radius:24px;overflow:hidden;background:radial-gradient(ellipse at 15% 0%,#193957,transparent 50%),linear-gradient(145deg,#0b172a,#0c1c30)}.tm-head{padding:20px;border-bottom:1px solid #263d57;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.tm-tag{font-size:10px;letter-spacing:2px;color:#8af4df;font-weight:900}.tm-head h2{font-size:clamp(20px,4vw,29px);margin:5px 0}.tm-head p{font-size:12px;color:#9bb3cb;margin:0;max-width:660px}.tm-badge{border:1px solid #35645d;color:#94f7d6;background:#102c2d;padding:7px 10px;border-radius:99px;font-size:10px}.tm-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(250px,.9fr);gap:14px;padding:15px}.tm-panel{background:#0d1b2d;border:1px solid #273f5b;border-radius:17px;padding:15px;min-width:0}.tm-panel h3{font-size:13px;margin:0 0 10px}.tm-controls{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.tm-btn{background:#142c44;color:#d9f7ff;border:1px solid #35526e;padding:9px 11px;border-radius:10px;font-size:11px;font-weight:800}.tm-btn.active,.tm-btn.primary{background:linear-gradient(100deg,#81f3d4,#85caff);color:#071629;border-color:transparent}.tm-range{width:100%;accent-color:#81f3d4}.tm-time{display:flex;justify-content:space-between;gap:8px;color:#87a8c7;font-size:10px;margin:5px 0}.tm-stage{min-height:150px;border-radius:14px;background:radial-gradient(ellipse at 50% 100%,#173a55,#091629 70%);border:1px solid #203c57;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}.tm-stage .tm-big{font-size:clamp(33px,6vw,48px);font-weight:900;letter-spacing:-2px;color:#b5fff1}.tm-stage p{font-size:11px;color:#9eb9d1;margin:3px 0}.tm-bars{display:grid;gap:10px;margin-top:14px}.tm-barrow{display:grid;grid-template-columns:92px 1fr 45px;gap:8px;align-items:center;font-size:10px;color:#aac0d6}.tm-track{height:8px;border-radius:99px;background:#172a40;overflow:hidden}.tm-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#66c7ed,#8cf5d4);width:0;transition:width .3s}.tm-log{display:flex;flex-direction:column;gap:8px;max-height:260px;overflow:auto}.tm-event{border-left:2px solid #4ed6c1;padding:8px 10px;background:#11243a;border-radius:0 10px 10px 0;font-size:11px;color:#c0d5e8}.tm-event small{display:block;color:#7898b6;font-size:9px;margin-bottom:3px}.tm-event.warn{border-color:#ffbc78}.tm-event.alert{border-color:#ff839b}.tm-bottom{padding:0 15px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.tm-stat{padding:12px;border:1px solid #263e59;border-radius:13px;background:#0d1b2d}.tm-stat span{display:block;color:#87a4c0;font-size:9px}.tm-stat b{font-size:19px;display:block;margin-top:4px}.tm-foot{font-size:10px;line-height:1.6;color:#7795b3;padding:0 17px 17px}.tm-empty{font-size:11px;color:#8ca9c5;line-height:1.6}.tm-input{width:100%;background:#071426;border:1px solid #2b4461;border-radius:9px;padding:9px;color:#e8f7ff;font:12px system-ui}.tm-label{font-size:10px;color:#8faac4;display:block;margin:8px 0 4px}@media(max-width:720px){.tm-grid{grid-template-columns:1fr;padding:10px}.tm-bottom{padding:0 10px 10px}.tm-stat{padding:9px}.tm-stat b{font-size:16px}.tm-head{padding:15px}}
+
+/* JARVIS v2 — richer analytical dashboard */
+.jarvis{position:relative;overflow:hidden;border:1px solid #315174!important;background:radial-gradient(ellipse at 8% 0%,#143e52 0,transparent 32%),radial-gradient(ellipse at 100% 100%,#172d57 0,transparent 40%),linear-gradient(145deg,#071322,#0a172b 55%,#091326)!important;box-shadow:0 24px 80px #0005,inset 0 1px #b9fff41a}
+.jarvis:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.13;background-image:linear-gradient(#4ce3e31a 1px,transparent 1px),linear-gradient(90deg,#4ce3e31a 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,black,transparent 80%)}
+.j-top,.j-grid,.j-lower,.j-note{position:relative;z-index:1}
+.j-mark{background:radial-gradient(circle,#1e5667,#0a1b2d);box-shadow:0 0 0 5px #58ead80b,0 0 32px #42e5dc2c}
+.j-live{letter-spacing:.7px}
+.j-live-warn{color:#ffd08a!important;border-color:#7c5a2b!important;background:#302312!important}
+.j-orb{width:124px;height:124px;background:radial-gradient(circle at 38% 30%,#f4ffff 0,#9afff2 8%,#40cbd5 21%,#2869a7 43%,#102a55 65%,#071426 69%);box-shadow:0 0 18px #43d6e866,0 0 62px #2767c833,inset 0 0 24px #b8fff755}
+.j-orb:before{border-width:1px;inset:-10px;box-shadow:0 0 22px #4cf5e51a}
+.j-orb:after{inset:-18px}
+.j-orb.thinking{animation:jarvisThinking .75s ease-in-out infinite;filter:saturate(1.3)}
+@keyframes jarvisThinking{0%,100%{transform:scale(1);filter:hue-rotate(0)}50%{transform:scale(1.055);filter:hue-rotate(22deg)}}
+.j-room{backdrop-filter:blur(8px);border-radius:13px;clip-path:none!important}
+.j-room strong{font-variant-numeric:tabular-nums}
+.j-room em{border-radius:99px;padding:4px 6px;background:#06152666;letter-spacing:.3px}
+.j-room em[data-state="good"]{color:#8dffcf}
+.j-room em[data-state="hot"],.j-room em[data-state="humid"]{color:#ffd18a}
+.j-room em[data-state="cool"],.j-room em[data-state="dry"]{color:#9ddcff}
+.j-room.j-stale{border-style:dashed;opacity:.8}
+.j-panel,.j-status,.j-orb-card,.j-scene{box-shadow:inset 0 1px #c8ffff09,0 12px 30px #0002}
+.j-panel h3{letter-spacing:.45px}
+.j-mini>div{border:1px solid #27435e;border-radius:12px;padding:10px;background:linear-gradient(145deg,#112943,#0a192c)}
+.j-mini b{font-size:20px;font-variant-numeric:tabular-nums}
+.j-msg{line-height:1.55;border:1px solid #294765;background:linear-gradient(145deg,#132c47,#10243a);white-space:pre-wrap}
+.j-msg.user{border-color:#2c766e;background:linear-gradient(145deg,#174d4c,#12363e)}
+.j-msg.j-typing{color:#9deee0;animation:jtyping 1s ease-in-out infinite alternate}
+@keyframes jtyping{from{opacity:.55}to{opacity:1}}
+.j-askrow input:focus{outline:2px solid #65e9d3;border-color:transparent}
+.j-quick button:hover,.j-btn:hover{border-color:#70e8d8;filter:brightness(1.08)}
+.j-note{border-top:1px solid #2a4563;background:#0a1729bb}
+@media(max-width:720px){.j-grid{grid-template-columns:1fr;padding:12px}.j-lower{grid-template-columns:1fr;padding:0 12px 12px}.j-scene{min-height:360px}.j-floor{inset:54px 12px 32px;transform:none}.j-room{padding:9px}.j-room b{font-size:10px}.j-room em{font-size:8px}.j-room strong{font-size:22px}.j-orb{width:106px;height:106px}}
+
+
+.release-strip{position:relative;z-index:20;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:10px 14px;background:linear-gradient(90deg,#071522,#123b48 48%,#101b35);border-bottom:1px solid #4adcc85c;box-shadow:0 8px 28px #0003;color:#dffefa;font:700 11px/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.45px}
+.release-brand{color:#8affdc;font-weight:950;letter-spacing:1.6px}
+.release-name{color:#b8cce4;font-weight:650}
+.release-version{padding:5px 8px;border:1px solid #57e5c580;border-radius:8px;background:#10352f;color:#90ffda;font-weight:900}
+.release-strip time{color:#f3f7ff;font-variant-numeric:tabular-nums}
+@media(max-width:540px){.release-strip{gap:7px;padding:9px 8px;font-size:9px}.release-name{width:100%;text-align:center;order:4}}
+
+
+/* SMART-HOME-17: room comparison filters, safer alerts and storage guard */
+.j-scene{min-height:350px}
+.j-floor{position:absolute;inset:54px 18px 30px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:10px;transform:none!important;filter:none!important}
+.j-room{transform:none!important;min-height:0;border-radius:15px!important;clip-path:none!important}
+.j-room:nth-child(3){grid-column:1 / 3;justify-self:center;width:calc(50% - 5px)}
+.j-room:nth-child(4){display:none!important}
+.j-hall{display:none!important}
+.j-room:hover,.j-room.selected{transform:none!important}
+@media(max-width:760px){.j-scene{min-height:380px}.j-floor{inset:54px 12px 30px;gap:8px;transform:none!important}.j-room{padding:9px}.j-room:nth-child(3){width:calc(50% - 4px)}}
+@media(max-width:430px){.j-room strong{font-size:20px}.j-room em{font-size:8px}}
+
+.room-filter{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#0d192b;color:var(--muted);font-size:11px}
+.room-filter strong{color:var(--text);font-size:11px}
+.room-filter label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.room-filter input{accent-color:var(--mint)}
+.room-filter i,.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle}
+
+.ble-diagnostics{border:1px solid #36506c;background:linear-gradient(145deg,#14243a,#0f1b2d);border-radius:16px;padding:15px;margin:0 0 20px}.ble-diagnostics h3{font-size:15px;margin:0 0 4px}.ble-diagnostics p{font-size:11px;color:var(--muted);margin:0 0 10px}.ble-diagnostics pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#091426;border:1px solid #263c57;border-radius:11px;padding:12px;font:12px/1.65 ui-monospace,monospace;color:#d9f7ff;margin:12px 0}.ble-diagnostics .ble-diagnostic-note{margin:0;font-size:10px}
+.ble-manual-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:12px 0}.ble-manual-row label{font-size:11px;color:var(--muted)}.ble-manual-row select{background:#0e182c;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px;min-height:44px;max-width:100%}
+/* SMART-HOME-17: clean, practical sensor-first interface */
+#homeTimeMachine,#jarvisCore,.release-strip,.ble-diagnostics,.toolsgrid#proDashboard,.toolsgrid:not(#proDashboard),section.help{display:none!important}
+.intro{padding:18px 0 12px}.intro h2{font-size:clamp(24px,4vw,34px);margin:6px 0}.intro p{font-size:13px}.actions .btn:not(#connectNext):not(#disconnectAll){display:none!important}
+.ble-diagnostics{display:none!important}.sectionhead{margin:14px 0 8px}.sensor{padding:14px}.sensor .macbox{display:none}.sensor .device{min-height:0}.sensor .temp{font-size:36px}.sensor .btn{margin-top:10px}.history{margin-top:10px}.footer span:nth-child(2){display:none}
+#bleReconnectSlot{display:none}
+</style>
+</head>
+<body>
+<div class="release-strip" role="status" aria-label="Sayt versiyası"><span class="release-brand">NURLAN HOME</span><span class="release-name">OTAQ MÜQAYİSƏSİ · XƏBƏRDARLIQ · YADDAŞ QORUNMASI</span><span class="release-version">SMART-HOME-17</span><time datetime="2026-10-11">11.10.2026</time></div>
+<div class="wrap">
+<section class="tm" id="homeTimeMachine"><div class="tm-head"><div><div class="tm-tag">NURLAN HOME / TEMPORAL INTELLIGENCE</div><h2>⏳ Evin zaman maşını</h2><p>Öz evinin sensor tarixçəsində gəz, hadisələri tap və “niyə dəyişdi?” sualına mümkün izahlar al. Uydurma məlumat yox — yalnız saxlanmış ölçmələr.</p></div><span class="tm-badge" id="tmDataState">● TARİXÇƏ GÖZLƏNİLİR</span></div>
+<div class="tm-grid"><div class="tm-panel"><h3>◈ Zaman xətti</h3><div class="tm-controls"><button class="tm-btn active" data-tm-range="24">Son 24 saat</button><button class="tm-btn" data-tm-range="72">Son 3 gün</button><button class="tm-btn" data-tm-range="168">Son 7 gün</button><button class="tm-btn" data-tm-range="all">Bütün tarixçə</button></div><div class="tm-stage"><div style="font-size:10px;color:#86a9c6;letter-spacing:1.8px" id="tmCursorLabel">TARİXÇƏDƏN NÖQTƏ SEÇ</div><div class="tm-big" id="tmCursorTemp">—°C</div><p id="tmCursorDetail">Hələ real ölçmə seçilməyib</p><p id="tmCursorRoom"></p></div><div class="tm-time"><span id="tmStart">Başlanğıc</span><span id="tmEnd">Son ölçmə</span></div><input class="tm-range" id="tmSlider" type="range" min="0" max="0" value="0" aria-label="Tarixçə zaman xətti"><div class="tm-controls"><button class="tm-btn" id="tmPrev">← Əvvəlki</button><button class="tm-btn primary" id="tmPlay">▶ Tarixi canlandır</button><button class="tm-btn" id="tmNext">Sonrakı →</button></div><div class="tm-bars" id="tmRoomBars"></div></div>
+<div class="tm-panel"><h3>✦ Hadisə detektoru</h3><p class="tm-empty" id="tmExplain">Tarixçədə kifayət qədər ölçmə olanda sistem temperatur və rütubətdəki dəyişiklikləri tapacaq. Hadisələrin səbəbi ölçülməyibsə, yalnız ehtimal kimi göstəriləcək.</p><div class="tm-controls"><button class="tm-btn primary" id="tmDetect">Hadisələri tap</button><button class="tm-btn" id="tmExportEvents">Hesabatı endir</button></div><div class="tm-log" id="tmLog"><div class="tm-event"><small>SİSTEM QEYDİ</small>BLE sensorlarına qoşulub ölçmə tarixçəsi topladıqdan sonra hadisələr burada görünəcək.</div></div></div></div>
+<div class="tm-bottom"><div class="tm-stat"><span>YADDAŞDAKI ÖLÇMƏLƏR</span><b id="tmCount">0</b></div><div class="tm-stat"><span>ƏN BÖYÜK TEMP. DƏYİŞİMİ</span><b id="tmSwing">—</b></div><div class="tm-stat"><span>ANALİZ EDİLƏN OTAQLAR</span><b id="tmRooms">0 / 3</b></div></div><div class="tm-foot">Məlumat mənbəyi bu brauzerdəki Nurlan Home lokal tarixçəsidir. Bu modul keçmişi göstərir, evin gələcəyini dəqiq proqnozlaşdırmır və fiziki cihazları idarə etmir. Tarixçə boşdursa, əvvəl BLE sensorlarını qoşub ölçmələr toplamaq lazımdır.</div></section>
+
+<section class="jarvis" id="jarvisCore" aria-label="Nurlan Home JARVIS">
+ <div class="j-top"><div class="j-brand"><div class="j-mark">NH</div><div><div class="j-kicker">NURLAN HOME / J.A.R.V.I.S.</div><div style="font-size:17px;font-weight:850">Ev idarəetmə mərkəzi</div><div class="j-sub">Spatial intelligence · Local-first interface</div></div></div><span class="j-live" id="jLive">● SİSTEM HAZIRDIR</span></div>
+ <div class="j-grid"><div class="j-scene"><div class="j-floor" id="jFloor">
+  <button class="j-room selected" data-room="Yataq otağı"><span class="j-glow"></span><span class="room-symbol">◉</span><b>YATAQ OTAĞI</b><strong id="jTemp1">—°</strong><small id="jHum1">Rütubət —%</small><em id="jState1">SENSOR GÖZLƏNİLİR</em></button>
+  <button class="j-room" data-room="Qonaq otağı"><span class="j-glow"></span><span class="room-symbol">⌂</span><b>QONAQ OTAĞI</b><strong id="jTemp2">—°</strong><small id="jHum2">Rütubət —%</small><em id="jState2">SENSOR GÖZLƏNİLİR</em></button>
+  <button class="j-room" data-room="Mətbəx"><span class="j-glow"></span><span class="room-symbol">⌁</span><b>MƏTBƏX</b><strong id="jTemp3">—°</strong><small id="jHum3">Rütubət —%</small><em id="jState3">SENSOR GÖZLƏNİLİR</em></button>
+  <button class="j-room" data-room="Dəhliz"><span class="room-symbol">⌖</span><b>DƏHLİZ / KEÇİD</b><strong style="font-size:17px">PIR + LUX</strong><small>ESP32 modulları qoşulanda</small><em>GƏLƏCƏK MODUL</em></button>
+ </div></div>
+ <div class="j-side"><div class="j-orb-card"><div class="j-orb" id="jOrb"><span>AI</span></div><h3>JARVIS onlayn</h3><p id="jOrbText">Evin sensor məlumatlarını təhlil etməyə hazıram.</p><div class="j-actions"><button class="j-btn main" id="jVoice">🎙 Səslə danış</button><button class="j-btn" id="jSummary">✦ Evi təhlil et</button></div></div><div class="j-status"><strong>◈ SİSTEM VƏZİYYƏTİ</strong><p id="jStatusText">Məlumat gözlənilir. Aşağıdakı BLE sensor paneli real ölçmələr üçün istifadə olunur.</p></div></div></div>
+ <div class="j-lower"><div class="j-panel"><h3>◉ JARVIS ilə danış</h3><div class="j-chat" id="jChat" aria-live="polite"><div class="j-msg">Salam! Mən Nurlan Home köməkçisiyəm. Evin haqqında sual verə bilərsən. Hazırda yalnız bu cihazda saxlanmış sensor məlumatlarına əsasən cavab verirəm.</div></div><form class="j-askrow" id="jAskForm"><input id="jQuestion" placeholder="Məsələn: ən isti otaq hansıdır?" autocomplete="off"><button class="j-btn main" type="submit">Göndər</button></form><div class="j-quick"><button data-jq="Evin vəziyyəti necədir?">Evi təhlil et</button><button data-jq="Ən isti otaq hansıdır?">Ən isti otaq</button><button data-jq="Rütubət necədir?">Rütubət</button><button data-jq="Nə məsləhət görürsən?">Məsləhət</button></div></div>
+ <div class="j-panel"><h3>◈ CANLI TELEMETRİYA</h3><div class="j-mini"><div><span>AKTİV OTAQ</span><b id="jActive">0 / 3</b></div><div><span>ORT. TEMP.</span><b id="jAvgTemp">—°</b></div><div><span>ORT. RÜTUBƏT</span><b id="jAvgHum">—%</b></div></div><p id="jInsight" style="font-size:11px;color:#9bb4cf;line-height:1.65;margin:12px 0 0">Məlumat gəldikcə burada evin vəziyyəti barədə qısa nəticə görünəcək.</p><div class="j-actions" style="justify-content:flex-start;margin-top:12px"><button class="j-btn" id="jRefresh">↻ Məlumatı yenilə</button><button class="j-btn" id="jSpeakSummary">🔊 Nəticəni oxu</button></div></div></div>
+ <div class="j-note"><strong>Qeyd:</strong> Bu JARVIS interfeysinin AI köməkçisi hazırda lokal qayda əsaslı analiz edir, bulud AI deyil. Real ölçmələr mövcud BLE panelindən oxunur; ESP32, işıq/PIR və IR cihaz idarəsi hələ qoşulmayıb.</div>
+</section>
+
+<header>
+ <div class="brand"><div class="logo">N</div><div><h1>NURLAN HOME</h1><p>Redmi Pad 2 · Xiaomi BLE sensor paneli</p></div></div>
+ <div class="version">SON VERSİYA · SMART-HOME-17 · 11.10.2026</div>
+</header>
+<section class="intro">
+ <div class="eyebrow">CANLI SENSOR MONİTORİNQİ</div>
+ <h2>Evinin havası,<br>bir ekranda. ✦</h2>
+ <p>Üç Xiaomi Mi Temperature and Humidity Monitor 2 sensorunu ayrıca seç və eyni paneldə canlı temperatur, rütubət və batareya göstəricilərini izlə. Bu panel demo rəqəmlər göstərmir — ölçmə gəlməyibsə, bunu açıq bildirir.</p>
+ <div class="actions"><button class="btn primary" id="connectNext">＋ Növbəti sensoru qoş</button><button class="btn" id="disconnectAll">■ Bütün əlaqələri kəs</button><button class="btn" id="exportBtn">⇩ CSV ixracı</button><button class="btn" id="backupBtn">⤓ JSON ehtiyat nüsxəsi</button><button class="btn" id="importBtn">⤒ Bərpa et</button><input id="importFile" type="file" accept=".json,application/json" hidden></div>
+</section>
+<div class="statusbox"><span class="statusdot" id="mainDot"></span><div><strong id="mainStatus">Hazırdır · heç bir sensor qoşulmayıb</strong><p id="mainDetail">Sensorları aşağıdakı kartlardan bir-bir qoş. Hər seçim üçün Bluetooth icazəsi açılacaq.</p></div></div>
+<section class="ble-diagnostics" aria-labelledby="bleDiagTitle"><div><h3 id="bleDiagTitle">🧪 Bluetooth diaqnostikası · SMART-HOME-17</h3><p>Avtomatik qoşulmanın niyə işləmədiyini yoxlayır. Bu bölmə mövcud sensor bağlantılarını kəsmir və heç bir tarixçəni silmir.</p></div><div class="ble-manual-row"><label for="bleReconnectSlot">Yenidən qoşulacaq sensor</label><select id="bleReconnectSlot" aria-label="Yenidən qoşulacaq sensor"><option value="0">Mətbəx · Sensor 1</option><option value="1">Yataq otağı · Sensor 2</option><option value="2">Qonaq otağı · Sensor 3</option></select><button class="btn primary" id="bleManualReconnect" type="button">↻ Seçilmiş sensoru yenidən qoş</button><button class="btn" id="bleDiagButton" type="button">Diaqnostikanı yenilə</button></div><pre id="bleDiagResult" aria-live="polite">Brauzer və icazə vəziyyəti yoxlanılır…</pre><p class="ble-diagnostic-note">Əgər getDevices() dəstəklənmirsə, bu sayt təkbaşına səhifə yenilənəndən sonra sensoru bərpa edə bilməz. Bu, kodun deyil, brauzer API-sinin məhdudiyyəti ola bilər.</p></section>
+<div class="sectionhead"><div><h3>Sensor otaqları</h3><p>Hər kartda “Sensor seç və qoş” düyməsinə bas. Mövcud bağlantılar saxlanılır.</p></div><span id="connectedCount" style="font-size:12px;color:var(--muted)">0 / 3 qoşulub</span></div>
+<section class="cards" id="sensorCards">
+ <article class="sensor" data-slot="0"><div class="sensortop"><div class="roomicon">🍋</div><span class="pill" id="pill0">Qoşulmayıb</span></div><select class="roomselect" aria-label="Birinci sensorun otağı"><option>Mətbəx</option><option>Yataq otağı</option><option>Qonaq otağı</option><option>Digər otaq</option></select><div class="device" id="device0">Sensor hələ seçilməyib</div><div class="macbox"><label for="mac0">MAC ünvanı · əl ilə qeyd (brauzer oxumur)</label><input id="mac0" value="A4:C1:38:B4:D0:E2" inputmode="text" autocomplete="off" spellcheck="false"></div><div class="temp" id="temp0">—<small> °C</small></div><div class="stats"><div class="stat"><span>💧 Rütubət</span><b id="hum0">— %</b></div><div class="stat"><span>🔋 Batareya</span><b id="batt0">— mV</b></div></div><div class="footline"><span id="seen0">Ölçmə yoxdur</span><span>Sensor 1</span></div><button class="btn primary connect" data-slot="0">Sensor seç və qoş</button></article>
+ <article class="sensor" data-slot="1"><div class="sensortop"><div class="roomicon">🛏️</div><span class="pill" id="pill1">Qoşulmayıb</span></div><select class="roomselect" aria-label="İkinci sensorun otağı"><option>Yataq otağı</option><option>Mətbəx</option><option>Qonaq otağı</option><option>Digər otaq</option></select><div class="device" id="device1">Sensor hələ seçilməyib</div><div class="macbox"><label for="mac1">MAC ünvanı · əl ilə qeyd (brauzer oxumur)</label><input id="mac1" value="A4:C1:38:59:70:FD" inputmode="text" autocomplete="off" spellcheck="false"></div><div class="temp" id="temp1">—<small> °C</small></div><div class="stats"><div class="stat"><span>💧 Rütubət</span><b id="hum1">— %</b></div><div class="stat"><span>🔋 Batareya</span><b id="batt1">— mV</b></div></div><div class="footline"><span id="seen1">Ölçmə yoxdur</span><span>Sensor 2</span></div><button class="btn primary connect" data-slot="1">Sensor seç və qoş</button></article>
+ <article class="sensor" data-slot="2"><div class="sensortop"><div class="roomicon">🛋️</div><span class="pill" id="pill2">Qoşulmayıb</span></div><select class="roomselect" aria-label="Üçüncü sensorun otağı"><option>Qonaq otağı</option><option>Mətbəx</option><option>Yataq otağı</option><option>Digər otaq</option></select><div class="device" id="device2">Sensor hələ seçilməyib</div><div class="macbox"><label for="mac2">MAC ünvanı · əl ilə qeyd (brauzer oxumur)</label><input id="mac2" value="A4:C1:38:D0:A6:F3" inputmode="text" autocomplete="off" spellcheck="false"></div><div class="temp" id="temp2">—<small> °C</small></div><div class="stats"><div class="stat"><span>💧 Rütubət</span><b id="hum2">— %</b></div><div class="stat"><span>🔋 Batareya</span><b id="batt2">— mV</b></div></div><div class="footline"><span id="seen2">Ölçmə yoxdur</span><span>Sensor 3</span></div><button class="btn primary connect" data-slot="2">Sensor seç və qoş</button></article>
+</section>
+
+<section class="toolsgrid" id="proDashboard">
+<article class="toolcard"><h3>🗺️ Evin canlı rəqəmsal xəritəsi</h3><p>Otaqların rəngi son real ölçməyə görə dəyişir.</p><div id="roomMap" class="roommap"></div></article>
+<article class="toolcard"><h3>🩺 Sensor sağlamlığı</h3><p>Son məlumat, batareya və sensorun vəziyyəti.</p><div id="deviceHealth" class="healthlist"></div><div class="mutednote">ESP32 statusu gateway qoşulanda aktivləşəcək.</div></article>
+<article class="toolcard"><h3>🔮 İqlim tendensiyası</h3><p>Son ölçmələrdən sadə trend təxmini.</p><div id="forecastPanel" class="forecastlist"></div></article>
+<article class="toolcard"><h3>🧠 Nurlan Home-a sual ver</h3><p>Tarixçəyə əsaslanan yerli analitika; xarici AI xidməti tələb etmir.</p><div class="toolrow"><input id="homeQuestion" placeholder="Bu gün ən isti otaq hansıdır?" style="flex:1;min-width:180px"><button class="btn primary" id="askHome">Cavablandır</button></div><div class="answerbox" id="homeAnswer">Sualını yaz və cavab al.</div><div class="quickquestions"><button class="btn" data-question="Bu gün ən isti otaq hansıdır?">Ən isti otaq</button><button class="btn" data-question="Son 24 saatın xülasəsi">24 saatın xülasəsi</button><button class="btn" data-question="Rütubət ən yüksək nə vaxt olub?">Ən yüksək rütubət</button></div></article>
+<article class="toolcard"><h3>⚙️ Avtomatlaşdırma qaydası</h3><p>Qaydanı saxla; bu mərhələdə yalnız ölçmələrə əsasən şərti yoxlayır. Kondisioner əmri hələ göndərilmir.</p><div class="toolrow"><label for="autoRoom">Otaq</label><select id="autoRoom"><option>Mətbəx</option><option>Yataq otağı</option><option>Qonaq otağı</option></select><label for="autoMetric">Göstərici</label><select id="autoMetric"><option value="temp">Temperatur</option><option value="hum">Rütubət</option></select><label for="autoOperator">Şərt</label><select id="autoOperator"><option value="gte">≥ hədd</option><option value="lte">≤ hədd</option></select><label for="autoValue">Hədd</label><input id="autoValue" type="number" value="28" step="0.5"><label for="autoMinutes">Davametmə</label><select id="autoMinutes"><option value="0">Dərhal</option><option value="5" selected>5 dəqiqə</option><option value="10">10 dəqiqə</option></select><button class="btn primary" id="saveAutomation">Qaydanı saxla</button></div><div id="automationStatus" class="answerbox"></div></article>
+<article class="toolcard"><h3>🌙 Gecə rejimi və hesabat</h3><div class="toolrow"><button class="btn" id="nightMode">🌙 Gecə rejimini aktiv et</button><button class="btn primary" id="dailyReport">📊 Hesabat yarat</button></div><div id="dailyReportBox" class="answerbox">Hesabatı yaratmaq üçün düyməyə toxun.</div></article>
+</section>
+<section class="history">
+ <div class="historyhead"><div><h3>Sensor qrafikləri</h3><p>Yalnız real qeydə alınmış ölçmələr. Tarixçə ayrıca açılır.</p></div><div class="toolrow"><label for="chartRange">Dövr</label><select id="chartRange"><option value="24">24 saat</option><option value="168">7 gün</option><option value="720">30 gün</option><option value="all">Bütün saxlanılan</option></select></div></div><div class="metricgrid" id="metrics"></div>
+ <div class="room-filter" role="group" aria-label="Qrafikdə göstərilən otaqlar"><strong>Qrafikdə göstər:</strong><label><input type="checkbox" class="chart-room-toggle" data-chart-slot="0" checked> <i style="background:#75f0c4"></i> Mətbəx</label><label><input type="checkbox" class="chart-room-toggle" data-chart-slot="1" checked> <i style="background:#91b4ff"></i> Yataq otağı</label><label><input type="checkbox" class="chart-room-toggle" data-chart-slot="2" checked> <i style="background:#c7a2ff"></i> Qonaq otağı</label></div><div class="chartgrid"><article class="chartcard"><h4>🌡️ Temperatur tarixçəsi</h4><canvas id="tempChart" aria-label="Temperatur tarixçəsinin qrafiki"></canvas><div class="chartnote">Xətt rəngi otağı göstərir; şaquli ölçü °C-dir.</div></article><article class="chartcard"><h4>💧 Rütubət tarixçəsi</h4><canvas id="humChart" aria-label="Rütubət tarixçəsinin qrafiki"></canvas><div class="chartnote">Xətt rəngi otağı göstərir; şaquli ölçü faizdir.</div></article><article class="chartcard"><h4>🔋 Batareya gərginliyi tarixçəsi</h4><canvas id="battChart" aria-label="Batareya gərginliyinin tarixçə qrafiki"></canvas><div class="chartnote">Millivolt (mV) ilə. Gərginlik temperaturdan və ölçmə şəraitindən təsirlənə bilər.</div></article></div><details style="margin-top:14px;border:1px solid var(--line);border-radius:13px;padding:12px;background:#0e182c"><summary style="cursor:pointer;font-weight:750;font-size:13px">📚 Ətraflı tarixçəni aç</summary><div class="historyhead" style="margin-top:12px"><p>Son 100 qeyd · lokal brauzer yaddaşı</p><button class="btn" id="clearHistory" style="min-height:38px;padding:8px 11px;font-size:12px">Tarixçəni sil</button></div><div class="tablewrap"><table><thead><tr><th>Vaxt</th><th>Otaq</th><th>MAC ünvanı</th><th>Temperatur</th><th>Rütubət</th><th>Batareya</th></tr></thead><tbody id="historyBody"><tr><td colspan="6" class="empty">Hələ real ölçmə yoxdur. Sensor qoşulduqdan sonra məlumat burada görünəcək.</td></tr></tbody></table></div></details>
+</section>
+<section class="toolsgrid"><article class="toolcard"><h3>🧠 İqlim qaydaları və xəbərdarlıqlar</h3><p>Hədləri özün seç. Xəbərdarlıqlar bu səhifə açıq olanda və yeni ölçmə gələndə hesablanır; kondisioner avtomatik idarə olunmur.</p><div class="toolrow"><label for="tempLow">Aşağı temperatur °C</label><input id="tempLow" type="number" step="0.5" value="16"><label for="tempHigh">Yüksək temperatur °C</label><input id="tempHigh" type="number" step="0.5" value="28"><label for="humLow">Aşağı rütubət %</label><input id="humLow" type="number" min="1" max="100" value="30"><label for="humHigh">Yüksək rütubət %</label><input id="humHigh" type="number" min="1" max="100" value="70"><button class="btn primary" id="saveRules">Qaydaları saxla</button></div><div class="toolrow" style="margin-top:10px"><label><input id="enableNotifications" type="checkbox"> Brauzer bildirişlərini aktiv et</label><button class="btn" id="notifyPermission">Bildiriş icazəsi</button></div><div class="mutednote" id="notificationStatus">Bildirişlər standart olaraq söndürülüb.</div><div class="toolrow"><label><input id="enableSound" type="checkbox"> Xəbərdarlıqda qısa səs çıxart</label><button class="btn" id="testSound">Səsi yoxla</button></div><div class="mutednote">Səs brauzer açıq olanda işləyir; ilk dəfə səs düyməsinə toxunmaq lazım ola bilər.</div><div class="alertlist" id="alerts"></div><div class="mutednote">Hədlər başlanğıc nümunəsidir; otaq və mövsümə görə dəyişə bilər.</div></article><article class="toolcard"><h3>🏠 Otaqlar üzrə statistika</h3><p>Seçilmiş dövr üzrə hər otağın orta, minimum və maksimum göstəriciləri.</p><div class="tablewrap"><table style="min-width:440px"><thead><tr><th>Otaq</th><th>Temperatur orta / min / maks.</th><th>Rütubət orta / min / maks.</th><th>Ən aşağı batareya</th></tr></thead><tbody id="roomStatsBody"><tr><td colspan="4" class="empty">Ölçmələr gözlənilir.</td></tr></tbody></table></div></article><article class="toolcard"><h3>💾 Yaddaş və ehtiyat nüsxə</h3><p>Ölçmələr hazırkı brauzerin localStorage yaddaşında qalır. JSON faylı ilə başqa brauzerə köçürə və ya bərpa edə bilərsən.</p><div class="toolrow"><button class="btn" id="backupBtn2">JSON ehtiyat nüsxəsi</button><button class="btn" id="importBtn2">JSON-dan bərpa</button></div><div class="mutednote" id="storageInfo">Yaddaş məlumatı hesablanır…</div></article></section>
+<section class="help">
+ <article><b>① Birinci sensor</b><p>“Sensor seç və qoş” düyməsinə bas, Bluetooth pəncərəsində LYWSD03MMC cihazını seç.</p></article>
+ <article><b>② Digər ikisi</b><p>İkinci və üçüncü kartda eyni addımı təkrarla. Əvvəlki sensorun bağlantısını kəsmək lazım deyil.</p></article>
+ <article><b>③ Redmi Pad 2 açıq qalsın</b><p>Canlı məlumat üçün bu səhifəni Chrome-da açıq saxla. Brauzer bağlansa və ya planşet yuxuya getsə, ölçmələr dayana bilər.</p></article>
+</section>
+<footer class="footer"><span>© 2026 Nurlan Home</span><span>SMART-HOME-17 · Sadə sensor paneli</span><span id="pageTime">Səhifə açılıb: —</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(()=> {
+ const SERVICE="ebe0ccb0-7a0a-4b0c-8a1a-6ff2997da3a6";
+ const CHAR="ebe0ccc1-7a0a-4b0c-8a1a-6ff2997da3a6";
+ const $=s=>document.querySelector(s);
+ const connections=[null,null,null];
+ const reconnectEnabled=[false,false,false],reconnectTimers=[null,null,null],reconnectAttempts=[0,0,0];
+ const deviceSlotsKey="nurlanHomeBleDeviceSlots";
+ const readDeviceSlots=()=>{try{return JSON.parse(localStorage.getItem(deviceSlotsKey)||"{}")}catch(e){return {}}};
+ const writeDeviceSlot=(slot,id)=>{const map=readDeviceSlots();map[String(slot)]=id;localStorage.setItem(deviceSlotsKey,JSON.stringify(map))};
+ let toastTimer;
+ let chartHours=24;
+ let lastAlertSignature="";
+ let lastNotifiedSignature="";
+ const settingsKey="nurlanHomeSmartRules";
+ const roomSettingsKey="nurlanHomeRoomSettings";
+ const storageKey="nurlanHomeMultiRealReadings";
+ const colors=["#75f0c4","#91b4ff","#c7a2ff"];
+ const stamp=()=>new Date().toLocaleString("az-AZ",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+ const safe=(s)=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ function toast(msg){const el=$("#toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),3600)}
+ function historyRows(){try{return JSON.parse(localStorage.getItem(storageKey)||"[]")}catch(e){return []}}
+ let storageWarningShown=false;function saveHistory(rows){try{const trimmed=rows.slice(-1000);localStorage.setItem(storageKey,JSON.stringify(trimmed));if(trimmed.length>=900&&!storageWarningShown){storageWarningShown=true;toast("Tarixçə "+trimmed.length+"/1000 ölçməyə çatıb. JSON ehtiyat nüsxəsi yarat.");}return true}catch(e){toast("Yaddaş doludur və ya əlçatan deyil. JSON ehtiyat nüsxəsi yarat, sonra köhnə tarixçəni ixrac edib təmizlə.");return false}}
+ function getRules(){try{return Object.assign({tempLow:16,tempHigh:28,humLow:30,humHigh:70,notifications:false,sound:true},JSON.parse(localStorage.getItem(settingsKey)||"{}"))}catch(e){return {tempLow:16,tempHigh:28,humLow:30,humHigh:70,notifications:false,sound:true}}}
+ function saveRoomSettings(){const data={rooms:[...document.querySelectorAll(".roomselect")].map(x=>x.value),macs:[0,1,2].map(i=>$("#mac"+i).value.trim())};try{localStorage.setItem(roomSettingsKey,JSON.stringify(data))}catch(e){}}
+ function loadRoomSettings(){try{const data=JSON.parse(localStorage.getItem(roomSettingsKey)||"{}");if(Array.isArray(data.rooms))data.rooms.forEach((v,i)=>{const el=document.querySelectorAll(".roomselect")[i];if(el&&[...el.options].some(o=>o.value===v||o.text===v))el.value=v});if(Array.isArray(data.macs))data.macs.forEach((v,i)=>{if($("#mac"+i)&&v)$("#mac"+i).value=v})}catch(e){}}
+ function saveRules(){const rules={tempLow:Number($("#tempLow").value),tempHigh:Number($("#tempHigh").value),humLow:Number($("#humLow").value),humHigh:Number($("#humHigh").value),notifications:$("#enableNotifications").checked,sound:$("#enableSound").checked};if(![rules.tempLow,rules.tempHigh,rules.humLow,rules.humHigh].every(Number.isFinite)||rules.tempLow>=rules.tempHigh||rules.humLow<1||rules.humHigh>100||rules.humLow>=rules.humHigh){toast("Hədləri yoxla: aşağı hədd yuxarı həddən kiçik olmalıdır.");return}localStorage.setItem(settingsKey,JSON.stringify(rules));renderAlerts();renderNotificationStatus();toast("İqlim qaydaları saxlanıldı.")}
+ async function requestNotificationPermission(){if(!("Notification" in window)){toast("Bu brauzer bildiriş API-sini dəstəkləmir.");return}try{const p=await Notification.requestPermission();renderNotificationStatus();toast(p==="granted"?"Bildiriş icazəsi verildi.":p==="denied"?"Bildiriş icazəsi brauzerdə bloklanıb.":"Bildiriş icazəsi verilmədi.")}catch(e){toast("Bildiriş icazəsi alınmadı.")}}
+ function renderNotificationStatus(){const supported=("Notification" in window);const permission=supported?Notification.permission:"unsupported";$("#notificationStatus").textContent=!supported?"Bu brauzer sistem bildirişlərini dəstəkləmir.":permission==="granted"?"Bildiriş icazəsi verilib.":permission==="denied"?"Bildirişlər brauzer ayarlarında bloklanıb.":"Bildiriş icazəsi hələ verilməyib.";$("#enableNotifications").checked=!!getRules().notifications}
+ let audioContext=null;function playAlertSound(){try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioContext=audioContext||new AC();if(audioContext.state==="suspended")audioContext.resume();const osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.type="sine";osc.frequency.value=880;gain.gain.setValueAtTime(0.0001,audioContext.currentTime);gain.gain.exponentialRampToValueAtTime(0.08,audioContext.currentTime+0.025);gain.gain.exponentialRampToValueAtTime(0.0001,audioContext.currentTime+0.22);osc.connect(gain);gain.connect(audioContext.destination);osc.start();osc.stop(audioContext.currentTime+0.24)}catch(e){}}
+ function notifyIfNeeded(out){const rules=getRules();const sig=out.map(a=>a.type+":"+a.text.replace(/son qeyd \d+ dəqiqə əvvəl/,"son qeyd köhnə")).join(";");if(!sig){lastNotifiedSignature="";return}if(sig===lastNotifiedSignature)return;lastNotifiedSignature=sig;if(rules.sound)playAlertSound();if(!rules.notifications||!("Notification" in window)||Notification.permission!=="granted")return;try{new Notification("Nurlan Home · xəbərdarlıq",{body:out.slice(0,3).map(a=>a.text).join("\n")})}catch(e){}}
+ function downloadBlob(content,type,name){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1200)}
+ function backupJson(){const payload={app:"Nurlan Home",version:3,exportedAt:new Date().toISOString(),readings:historyRows(),rules:getRules(),rooms:[...document.querySelectorAll(".roomselect")].map(x=>x.value),macs:[0,1,2].map(i=>$("#mac"+i).value.trim())};downloadBlob(JSON.stringify(payload,null,2),"application/json;charset=utf-8","nurlan-home-backup.json");toast("JSON ehtiyat nüsxəsi hazırdır.")}
+ function restoreJson(file){const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);const incoming=Array.isArray(data)?data:data.readings;if(!Array.isArray(incoming))throw Error("Ölçmə siyahısı tapılmadı.");const valid=incoming.filter(r=>r&&r.time&&Number.isFinite(Number(r.temp))&&Number.isFinite(Number(r.hum))&&Number.isFinite(Number(r.batt)));if(!valid.length)throw Error("Etibarlı ölçmə tapılmadı.");const merged=[...historyRows(),...valid].sort((a,b)=>new Date(a.time)-new Date(b.time));const seen=new Set();const unique=merged.filter(r=>{const k=[r.time,r.slot,r.temp,r.hum,r.batt].join("|");if(seen.has(k))return false;seen.add(k);return true});saveHistory(unique);if(data.rules){localStorage.setItem(settingsKey,JSON.stringify(data.rules));$("#tempHigh").value=data.rules.tempHigh??28;$("#humHigh").value=data.rules.humHigh??70}if(Array.isArray(data.rooms))data.rooms.forEach((v,i)=>{const el=document.querySelectorAll(".roomselect")[i];if(el&&[...el.options].some(o=>o.value===v||o.text===v))el.value=v});if(Array.isArray(data.macs))data.macs.forEach((v,i)=>{if($("#mac"+i)&&v)$("#mac"+i).value=v});saveRoomSettings();renderHistory();renderCharts();renderMetrics();renderRoomStats();renderAlerts();renderStorageInfo();renderNotificationStatus();toast("Ehtiyat nüsxəsi bərpa olundu.");}catch(e){toast("Bərpa alınmadı: "+e.message)}};reader.readAsText(file)}
+ function renderMetrics(){const all=historyRows();const sel=$("#chartRange")?.value||"24";const cut=sel==="all"?0:Date.now()-Number(sel)*3600000;const rows=all.filter(r=>new Date(r.time).getTime()>=cut);const avg=k=>rows.length?rows.reduce((s,r)=>s+Number(r[k]),0)/rows.length:null;const minBatt=rows.length?Math.min(...rows.map(r=>Number(r.batt))):null;const temps=rows.map(r=>Number(r.temp)),hums=rows.map(r=>Number(r.hum));const vals=[["Orta temperatur",avg("temp"),"°C",1],["Orta rütubət",avg("hum"),"%",0],["Ən aşağı batareya",minBatt,"mV",0]];let html=vals.map(v=>'<div class="metric"><span>'+v[0]+'</span><b>'+(v[1]===null?"—":v[1].toFixed(v[3]))+' <small>'+v[2]+'</small></b></div>').join("");if(rows.length)html+='<div class="metric"><span>Temperatur min. / maks.</span><b>'+Math.min(...temps).toFixed(1)+'° / '+Math.max(...temps).toFixed(1)+'°</b></div><div class="metric"><span>Rütubət min. / maks.</span><b>'+Math.min(...hums)+'% / '+Math.max(...hums)+'%</b></div><div class="metric"><span>Dövr üzrə qeydlər</span><b>'+rows.length+' <small>ölçmə</small></b></div>';$("#metrics").innerHTML=html}
+ function renderAlerts(){const rules=getRules(),rows=historyRows(),latest=[0,1,2].map(slot=>rows.filter(r=>Number(r.slot)===slot).slice(-1)[0]).filter(Boolean),out=[];latest.forEach(r=>{const room=safe(r.room||("Sensor "+(Number(r.slot)+1))),age=(Date.now()-new Date(r.time).getTime())/60000;if(age>30)out.push({type:"warn",text:room+": son qeyd "+Math.round(age)+" dəqiqə əvvəl — məlumat köhnə ola bilər."});if(Number(r.temp)<=rules.tempLow)out.push({type:"warn",text:room+": temperatur aşağıdır — "+Number(r.temp).toFixed(1)+"°C (aşağı hədd "+rules.tempLow+"°C)."});if(Number(r.temp)>=rules.tempHigh)out.push({type:"bad",text:room+": temperatur yüksəkdir — "+Number(r.temp).toFixed(1)+"°C (yuxarı hədd "+rules.tempHigh+"°C)."});if(Number(r.hum)<=rules.humLow)out.push({type:"warn",text:room+": rütubət aşağıdır — "+Number(r.hum)+"% (aşağı hədd "+rules.humLow+"%)."});if(Number(r.hum)>=rules.humHigh)out.push({type:"warn",text:room+": rütubət yüksəkdir — "+Number(r.hum)+"% (yuxarı hədd "+rules.humHigh+"%)."});if(Number(r.batt)<2600)out.push({type:"warn",text:room+": batareya "+Number(r.batt)+" mV — izləmək tövsiyə olunur."})});$("#alerts").innerHTML=out.length?out.map(a=>'<div class="alertitem '+a.type+'">'+a.text+'</div>').join(""):'<div class="alertitem">Son saxlanmış ölçmələrdə xəbərdarlıq yoxdur.</div>';const sig=out.map(x=>x.type+":"+x.text.replace(/son qeyd \d+ dəqiqə əvvəl/,"son qeyd köhnə")).join(";");if(sig&&sig!==lastAlertSignature)toast("Nurlan Home: iqlim xəbərdarlığı var.");lastAlertSignature=sig;notifyIfNeeded(out)}
+ function renderRoomStats(){const sel=$("#chartRange").value;const cut=sel==="all"?0:Date.now()-Number(sel)*3600000;const rows=historyRows().filter(r=>new Date(r.time).getTime()>=cut);const rooms=[...new Set([...document.querySelectorAll(".roomselect")].map(x=>x.value))];const body=$("#roomStatsBody");const fmt=arr=>arr.length?(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1)+" / "+Math.min(...arr).toFixed(1)+" / "+Math.max(...arr).toFixed(1):"—";if(!rows.length){body.innerHTML='<tr><td colspan="4" class="empty">Bu dövr üçün ölçmə yoxdur.</td></tr>';return}body.innerHTML=rooms.map(room=>{const rs=rows.filter(r=>r.room===room);if(!rs.length)return '<tr><td>'+safe(room)+'</td><td>—</td><td>—</td><td>—</td></tr>';return '<tr><td>'+safe(room)+'</td><td>'+fmt(rs.map(r=>Number(r.temp)))+' °C</td><td>'+fmt(rs.map(r=>Number(r.hum)))+'%</td><td>'+Math.min(...rs.map(r=>Number(r.batt)))+' mV</td></tr>'}).join("")}
+ function renderStorageInfo(){const rows=historyRows();let bytes=0;try{bytes=new Blob([localStorage.getItem(storageKey)||""]).size}catch(e){}const left=Math.max(0,1000-rows.length);$("#storageInfo").textContent=rows.length+" / 1000 ölçmə · "+left+" yer qalıb · təxminən "+(bytes/1024).toFixed(1)+" KB. Yalnız bu brauzerdə saxlanılır. "+(rows.length>=900?"⚠ JSON ehtiyat nüsxəsi yaratmağın vaxtıdır.":"");}
+ 
+ function renderHistory(){const rows=historyRows().slice(-100).reverse();const body=$("#historyBody");if(!rows.length){body.innerHTML='<tr><td colspan="6" class="empty">Hələ real ölçmə yoxdur. Sensor qoşulduqdan sonra məlumat burada görünəcək.</td></tr>';return}body.innerHTML=rows.map(r=>'<tr><td>'+safe(new Date(r.time).toLocaleString("az-AZ"))+'</td><td>'+safe(r.room)+'</td><td>'+safe(r.mac||"MAC daxil edilməyib")+'</td><td>'+Number(r.temp).toFixed(2)+' °C</td><td>'+Number(r.hum)+'%</td><td>'+Number(r.batt)+' mV</td></tr>').join("")}
+ function drawChart(canvasId,field){
+  const canvas=$("#"+canvasId);if(!canvas)return;const ctx=canvas.getContext("2d");const dpr=window.devicePixelRatio||1;const w=canvas.clientWidth||300,h=canvas.clientHeight||210;canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+  const cutoff=chartHours==="all"?0:Date.now()-Number(chartHours)*60*60*1000;const data=historyRows().filter(r=>new Date(r.time).getTime()>=cutoff&&Number.isFinite(Number(r[field])));const muted=getComputedStyle(document.body).getPropertyValue("--muted").trim()||"#9aacc8";const pad={l:36,r:8,t:12,b:25};const cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;
+  if(!data.length){ctx.fillStyle=muted;ctx.font="12px system-ui";ctx.textAlign="center";ctx.fillText("Hələ real ölçmə yoxdur",w/2,h/2);return}
+  let min=Math.min(...data.map(r=>Number(r[field]))),max=Math.max(...data.map(r=>Number(r[field])));if(max-min<0.5){min-=0.5;max+=0.5}else{const pv=(max-min)*.15;min-=pv;max+=pv}
+  ctx.font="10px system-ui";ctx.textAlign="right";for(let i=0;i<5;i++){const v=min+(max-min)*i/4;const y=pad.t+ch-i*ch/4;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.strokeStyle="#2a3a58";ctx.stroke();ctx.fillStyle=muted;ctx.fillText(v.toFixed(field==="temp"?1:0),pad.l-6,y+3)}
+  const times=data.map(r=>new Date(r.time).getTime()),tmin=Math.min(...times),tmax=Math.max(...times);
+  for(let slot=0;slot<3;slot++){const toggle=document.querySelector('.chart-room-toggle[data-chart-slot="'+slot+'"]');if(toggle&&!toggle.checked)continue;const series=data.filter(r=>Number(r.slot)===slot).sort((a,b)=>new Date(a.time)-new Date(b.time));if(!series.length)continue;ctx.beginPath();series.forEach((r,i)=>{const x=pad.l+(tmax===tmin?0.5:(new Date(r.time).getTime()-tmin)/(tmax-tmin))*cw;const y=pad.t+(max-Number(r[field]))/(max-min)*ch;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.strokeStyle=colors[slot];ctx.lineWidth=2.2;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke()}
+  ctx.textAlign="left";ctx.fillStyle=muted;ctx.fillText(new Date(tmin).toLocaleTimeString("az-AZ",{hour:"2-digit",minute:"2-digit"}),pad.l,h-5);ctx.textAlign="right";ctx.fillText(new Date(tmax).toLocaleTimeString("az-AZ",{hour:"2-digit",minute:"2-digit"}),w-pad.r,h-5);
+ }
+ function renderCharts(){drawChart("tempChart","temp");drawChart("humChart","hum");drawChart("battChart","batt")}
+
+ const roomNames=()=>[...document.querySelectorAll(".roomselect")].map(x=>x.value);
+ function latestBySlot(){const rows=historyRows();return [0,1,2].map(slot=>rows.filter(r=>Number(r.slot)===slot).slice(-1)[0]||null)}
+ function renderProDashboard(){
+  const rules=getRules(),latest=latestBySlot(),rooms=roomNames();
+  $("#roomMap").innerHTML=latest.map((r,i)=>{const room=rooms[i]||("Sensor "+(i+1));if(!r)return '<div class="roomtile"><h4>'+safe(room)+'</h4><strong>—</strong><p>Məlumat gözlənilir</p></div>';const age=(Date.now()-new Date(r.time).getTime())/60000;let cls="good",state="Normal";if(age>30){cls="warn";state="Məlumat köhnədir"}else if(Number(r.temp)>=rules.tempHigh||Number(r.hum)>=rules.humHigh){cls="bad";state="Yüksək göstərici"}else if(Number(r.temp)<=rules.tempLow||Number(r.hum)<=rules.humLow){cls="warn";state="Aşağı göstərici"}return '<div class="roomtile '+cls+'"><h4>'+safe(room)+'</h4><strong>'+Number(r.temp).toFixed(1)+'°C</strong><p>💧 '+Number(r.hum)+'% · '+state+'</p><p>Son ölçmə: '+safe(new Date(r.time).toLocaleTimeString("az-AZ",{hour:"2-digit",minute:"2-digit"}))+'</p></div>'}).join("");
+  $("#deviceHealth").innerHTML=latest.map((r,i)=>{if(!r)return '<div class="healthrow"><span>'+safe(rooms[i])+'</span><b class="status-warn">Ölçmə yoxdur</b></div>';const age=(Date.now()-new Date(r.time).getTime())/60000;const status=age>30?"Məlumat köhnədir":Number(r.batt)<2600?"Batareyanı yoxla":"Normal";return '<div class="healthrow"><span>'+safe(rooms[i])+' · '+Math.round(Math.max(0,age))+' dəq əvvəl</span><b class="'+(age>30||Number(r.batt)<2600?"status-warn":"status-good")+'">'+status+' · '+Number(r.batt)+' mV</b></div>'}).join("");
+  $("#forecastPanel").innerHTML=latest.map((r,i)=>{if(!r)return "";const a=historyRows().filter(x=>Number(x.slot)===i).slice(-8);if(a.length<3)return '<div class="forecastrow"><span>'+safe(rooms[i])+'</span><b>Trend üçün məlumat azdır</b></div>';const first=a[0],last=a[a.length-1],hours=(new Date(last.time)-new Date(first.time))/3600000,rate=hours>0?(Number(last.temp)-Number(first.temp))/hours:0;return '<div class="forecastrow"><span>'+safe(rooms[i])+'</span><b>'+(rate>.15?"Artım":rate<-.15?"Azalma":"Nisbətən sabit")+' · '+(rate>0?"+":"")+rate.toFixed(2)+'°C/saat</b></div>'}).join("");
+ }
+ function answerHome(q){const rows=historyRows().filter(r=>Date.now()-new Date(r.time).getTime()<=86400000),rooms=roomNames(),n=q.toLowerCase();if(!rows.length)return "Son 24 saatda saxlanmış real ölçmə yoxdur.";if(n.includes("isti")){const a=[0,1,2].map(i=>({room:rooms[i],rs:rows.filter(r=>Number(r.slot)===i)})).filter(x=>x.rs.length).map(x=>({...x,v:Math.max(...x.rs.map(r=>Number(r.temp)))})).sort((a,b)=>b.v-a.v);return a.length?"Son 24 saatın ən yüksək temperaturu: "+a[0].room+" — "+a[0].v.toFixed(1)+"°C.":"Otaq məlumatı yoxdur."}if(n.includes("rütubət")||n.includes("rutubet")){const r=rows.reduce((a,b)=>Number(a.hum)>Number(b.hum)?a:b);return "Ən yüksək rütubət: "+r.room+" — "+r.hum+"%, "+new Date(r.time).toLocaleString("az-AZ")+". Ölçmə sayı: "+rows.length+"."}const avg=k=>rows.reduce((a,r)=>a+Number(r[k]),0)/rows.length;return "Son 24 saat: "+rows.length+" ölçmə. Orta temperatur "+avg("temp").toFixed(1)+"°C, orta rütubət "+avg("hum").toFixed(1)+"%. Temperatur aralığı "+Math.min(...rows.map(r=>Number(r.temp))).toFixed(1)+"–"+Math.max(...rows.map(r=>Number(r.temp))).toFixed(1)+"°C."}
+ function renderDailyReport(){const rows=historyRows().filter(r=>Date.now()-new Date(r.time).getTime()<=86400000);if(!rows.length){$("#dailyReportBox").textContent="Son 24 saat üçün real ölçmə yoxdur.";return}const avg=k=>rows.reduce((a,r)=>a+Number(r[k]),0)/rows.length,hot=rows.reduce((a,b)=>Number(a.temp)>Number(b.temp)?a:b),wet=rows.reduce((a,b)=>Number(a.hum)>Number(b.hum)?a:b);$("#dailyReportBox").textContent="NURLAN HOME · SON 24 SAAT\nÖlçmə sayı: "+rows.length+"\nOrta temperatur: "+avg("temp").toFixed(1)+"°C\nOrta rütubət: "+avg("hum").toFixed(1)+"%\nƏn isti: "+hot.room+" · "+Number(hot.temp).toFixed(1)+"°C\nƏn rütubətli: "+wet.room+" · "+Number(wet.hum)+"%\n"+new Date().toLocaleString("az-AZ")}
+ function renderAutomation(){let a=null;try{a=JSON.parse(localStorage.getItem("nurlanHomeAutomation")||"null")}catch(e){}$("#automationStatus").textContent=a?"Saxlanıb: "+a.room+" · "+(a.metric==="temp"?"temperatur":"rütubət")+" "+(a.op==="gte"?"≥":"≤")+" "+a.value+" · "+a.minutes+" dəqiqə. İcra hazırda lokal analizdir; server/ESP32 əmri qoşulmayıb.":"Qayda saxlanmayıb."}
+ function checkAutomationReading(r){let a=null;try{a=JSON.parse(localStorage.getItem("nurlanHomeAutomation")||"null")}catch(e){}if(!a||a.room!==r.room)return;const value=Number(r[a.metric]),match=a.op==="gte"?value>=a.value:value<=a.value,key=a.room+"|"+a.metric;let state={};try{state=JSON.parse(localStorage.getItem("nurlanHomeAutomationTimers")||"{}")}catch(e){}if(!match){delete state[key];localStorage.setItem("nurlanHomeAutomationTimers",JSON.stringify(state));return}if(!state[key]){state[key]=Date.now();localStorage.setItem("nurlanHomeAutomationTimers",JSON.stringify(state))}if(Date.now()-state[key]>=Number(a.minutes)*60000){$("#automationStatus").textContent="Şərt ödənir: "+a.room+" · "+value+(a.metric==="temp"?"°C":"%")+". Bu, yalnız xəbərdarlıqdır; kondisioner əmri hələ qoşulmayıb.";const signature=key+"|"+value;if(sessionStorage.getItem("nurlanHomeAutomationLast")!==signature){toast("Avtomatlaşdırma şərti ödənir: "+a.room);sessionStorage.setItem("nurlanHomeAutomationLast",signature)}}}
+
+ function updateCount(){const n=connections.filter(Boolean).length;$("#connectedCount").textContent=n+" / 3 qoşulub";$("#mainDot").style.background=n?"var(--mint)":"var(--orange)";$("#mainStatus").textContent=n===3?"3 sensorun hamısı qoşulub":n? n+" sensor qoşulub · "+(3-n)+" boş yer var":"Hazırdır · heç bir sensor qoşulmayıb";$("#mainDetail").textContent=n?"Qoşulmuş sensorların ölçmələri gələn kimi kartlarda yenilənəcək. Digər sensorları da qoşa bilərsən.":"Sensorları aşağıdakı kartlardan bir-bir qoş. Hər seçim üçün Bluetooth icazəsi açılacaq."}
+ function paintDisconnected(slot,msg){$("#pill"+slot).textContent="Əlaqə kəsildi";$("#pill"+slot).classList.remove("live");$("#seen"+slot).textContent=msg||"Sensorla əlaqə kəsildi";updateCount()}
+ function disconnectSlot(slot){reconnectEnabled[slot]=false;if(reconnectTimers[slot]){clearTimeout(reconnectTimers[slot]);reconnectTimers[slot]=null}const c=connections[slot];if(!c)return;try{c.characteristic.removeEventListener("characteristicvaluechanged",c.handler)}catch(e){}try{if(c.device.gatt&&c.device.gatt.connected)c.device.gatt.disconnect()}catch(e){}connections[slot]=null;paintDisconnected(slot,"Əlaqə kəsildi");$("#"+ "device"+slot).textContent="Sensor qoşulmayıb";$("#"+ "temp"+slot).innerHTML='—<small> °C</small>';$("#hum"+slot).textContent="— %";$("#batt"+slot).textContent="— mV";$("#"+ "seen"+slot).textContent="Ölçmə yoxdur";updateCount()}
+ async function connectSlot(slot,knownDevice=null,isAuto=false){
+  if(!window.isSecureContext){toast("Bluetooth üçün HTTPS lazımdır.");return}
+  if(!navigator.bluetooth){toast("Bu brauzer Web Bluetooth-u dəstəkləmir. Redmi Pad 2-də Chrome ilə aç.");return}
+  const old=connections[slot];if(old){toast("Bu kartda sensor artıq qoşulub. Əvvəl əlaqəni kəs.");return}
+  const button=document.querySelector('.connect[data-slot="'+slot+'"]');button.disabled=true;button.textContent="Sensor seçilir…";
+  try{
+   const device=knownDevice||await navigator.bluetooth.requestDevice({filters:[{namePrefix:"LYWSD03MMC"}],optionalServices:[SERVICE]});
+   // If the same device is already assigned to another card, avoid duplicate GATT sessions.
+   const duplicate=connections.findIndex((c,i)=>c&&c.device.id===device.id&&i!==slot);
+   if(duplicate!==-1){throw new Error("Bu sensor artıq "+(duplicate+1)+"-ci kartda qoşulub. Başqa sensor seç.")}
+   $("#device"+slot).textContent=(device.name||"Naməlum BLE cihazı")+" · uyğunluq yoxlanılır…";
+   const server=await device.gatt.connect();
+   let service;
+   try{service=await server.getPrimaryService(SERVICE)}catch(serviceError){try{device.gatt.disconnect()}catch(ignore){}throw new Error("Seçilən cihaz Xiaomi LYWSD03MMC sensoru deyil və ya uyğun xidmət təqdim etmir. Siyahıdan LYWSD03MMC sensorunu seç.")}
+   const characteristic=await service.getCharacteristic(CHAR);
+   const handler=e=>showValue(slot,device,e.target.value);
+   characteristic.addEventListener("characteristicvaluechanged",handler);
+   await characteristic.startNotifications();
+   connections[slot]={device,server,characteristic,handler};
+   writeDeviceSlot(slot,device.id);reconnectEnabled[slot]=true;reconnectAttempts[slot]=0;
+   device.addEventListener("gattserverdisconnected",()=>{if(connections[slot]&&connections[slot].device===device){connections[slot]=null;paintDisconnected(slot,"Bluetooth kəsildi · avtomatik yenidən qoşulmağa çalışıram…");button.disabled=false;button.textContent="Yenidən qoş";updateCount();scheduleReconnect(slot,device)}});
+   $("#pill"+slot).textContent="Qoşulub";$("#pill"+slot).classList.add("live");
+   $("#device"+slot).textContent=(device.name||"Ad göstərilmir")+" · brauzer ID: "+String(device.id||"").slice(0,8);
+   button.textContent="Əlaqəni kəs";button.disabled=false;button.classList.remove("primary");button.onclick=()=>{disconnectSlot(slot);button.textContent="Sensor seç və qoş";button.classList.add("primary");button.onclick=null};
+   updateCount();
+   try{showValue(slot,device,await characteristic.readValue())}catch(e){$("#seen"+slot).textContent="İlk ölçmə gözlənilir…"}
+   toast((device.name||"Xiaomi sensor")+(isAuto?" avtomatik qoşuldu.":" qoşuldu. İstəsən növbəti sensoru da seç."));
+  }catch(e){
+   const msg=e.name==="NotFoundError"?"Sensor seçimi ləğv edildi.":(e.name?e.name+": ":"")+(e.message||"Bluetooth bağlantısı alınmadı.");
+   $("#seen"+slot).textContent=(isAuto?"Avtomatik qoşulma alınmadı: ":"Qoşulma xətası: ")+msg;if(!isAuto)toast(msg);if(isAuto&&reconnectEnabled[slot])scheduleReconnect(slot,knownDevice);
+  }finally{if(!connections[slot]){button.disabled=false;button.textContent="Sensor seç və qoş"}}
+ }
+ function scheduleReconnect(slot,device){if(!reconnectEnabled[slot]||connections[slot]||reconnectTimers[slot])return;const delay=Math.min(30000,2000*Math.pow(2,Math.min(reconnectAttempts[slot],4)));reconnectAttempts[slot]++;$("#seen"+slot).textContent="Avtomatik yenidən qoşulma cəhdi · "+Math.round(delay/1000)+" san.";reconnectTimers[slot]=setTimeout(()=>{reconnectTimers[slot]=null;if(reconnectEnabled[slot]&&!connections[slot])connectSlot(slot,device,true)},delay)}
+ async function restoreKnownDevices(){
+  const status=$("#bleDiagResult");
+  if(!navigator.bluetooth){if(status)status.textContent="Web Bluetooth API yoxdur. HTTPS və Chrome kimi uyğun brauzer tələb olunur.";return}
+  if(typeof navigator.bluetooth.getDevices!=="function"){if(status)status.textContent="Bu brauzer versiyasında getDevices() yoxdur. Sayt əvvəl icazə verilmiş sensorları səhifə yenilənəndən sonra özü tapa bilmir; əl ilə qoşulma işləməlidir.";return}
+  try{
+   const map=readDeviceSlots(),devices=await navigator.bluetooth.getDevices();
+   let matched=0;
+   for(let slot=0;slot<3;slot++){
+    if(connections[slot])continue;
+    const id=map[String(slot)];if(!id)continue;
+    const device=devices.find(d=>d.id===id);
+    if(device){matched++;reconnectEnabled[slot]=true;$("#seen"+slot).textContent="Əvvəl icazə verilmiş sensor tapıldı · qoşuluram…";connectSlot(slot,device,true)}
+    else if($("#seen"+slot))$("#seen"+slot).textContent="Yadda saxlanmış icazə bu brauzerdə tapılmadı";
+   }
+   if(status)status.textContent="getDevices(): "+devices.length+" icazəli cihaz; "+matched+" saxlanmış sensor uyğun gəldi. "+(matched?"Avtomatik qoşulma başladılır.": "Uyğun sensor tapılmadı; diaqnostika nəticələrinə bax.");
+  }catch(e){if(status)status.textContent="getDevices() xətası: "+(e.name||"Xəta")+" — "+(e.message||"detal yoxdur");console.warn("BLE auto-restore unavailable",e)}
+ }
+
+ // Cloud history: public read/insert policies are configured in Supabase.
+ const cloudClient = (window.supabase && window.supabase.createClient)
+   ? window.supabase.createClient(window.NURLAN_SUPABASE_URL, window.NURLAN_SUPABASE_KEY)
+   : null;
+ const cloudLastSent = [0,0,0];
+ const cloudStatus = document.createElement("div");
+ cloudStatus.className = "statusbox";
+ cloudStatus.innerHTML = '<span class="statusdot" id="cloudDot"></span><div><strong id="cloudStatusTitle">☁️ Bulud tarixçəsi hazırlanır…</strong><p id="cloudStatusDetail">Sensor ölçmələri Supabase ilə sinxronlaşdırılacaq.</p></div>';
+ const bleSection = document.getElementById("sensorCards");
+ if (bleSection && bleSection.parentNode && !document.getElementById("cloudStatusTitle")) bleSection.parentNode.insertBefore(cloudStatus, bleSection.nextSibling);
+ function setCloudStatus(ok,title,detail){
+   const t=document.getElementById("cloudStatusTitle"),d=document.getElementById("cloudStatusDetail"),dot=document.getElementById("cloudDot");
+   if(t)t.textContent=title;if(d)d.textContent=detail;if(dot)dot.style.background=ok?"var(--mint)":"var(--orange)";
+ }
+ async function sendCloudReading(row){
+   if(!cloudClient)return;
+   const now=Date.now(),slot=Number(row.slot);
+   if(!Number.isInteger(slot)||slot<0||slot>2||now-cloudLastSent[slot]<5000)return;
+   cloudLastSent[slot]=now;
+   const payload={room:row.room,temperature:Number(row.temp),humidity:Number(row.hum),battery_mv:Number(row.batt),recorded_at:new Date(row.time).toISOString()};
+   const {error}=await cloudClient.from("sensor_readings").insert(payload);
+   if(error){setCloudStatus(false,"☁️ Bulud yazılışı alınmadı",error.message);cloudLastSent[slot]=0;return;}
+   setCloudStatus(true,"☁️ Buludla əlaqə var","Yeni sensor ölçməsi buluda göndərildi. Yeni ölçmə gəldikdə ən azı 5 saniyə ara ilə yazılır.");
+ }
+ function cloudSlotForRoom(room){
+   const normalized=String(room||"").trim().toLocaleLowerCase("az");
+   const selectors=[...document.querySelectorAll(".roomselect")];
+   const found=selectors.findIndex(el=>String(el.value||"").trim().toLocaleLowerCase("az")===normalized);
+   if(found>=0)return found;
+   const fallback={"mətbəx":0,"yataq otağı":1,"qonaq otağı":2};
+   return Object.prototype.hasOwnProperty.call(fallback,normalized)?fallback[normalized]:-1;
+ }
+ function formatBatteryDisplay(value){
+  const mv=Number(value);
+  if(!Number.isFinite(mv)||mv<=0)return "— mV";
+  // Approximate voltage indicator only; CR2032 voltage is not a linear measure of remaining capacity.
+  const pct=Math.max(0,Math.min(100,Math.round((mv-2000)/10)));
+  return mv+" mV · 🔋 ~"+pct+"%";
+ }
+ function renderCloudLatestToCards(){
+   const rows=historyRows();
+   const fallback={"mətbəx":0,"yataq otağı":1,"qonaq otağı":2};
+   const selectors=[...document.querySelectorAll(".roomselect")];
+   for(let slot=0;slot<3;slot++){
+     const cardRoom=String(selectors[slot]?.value||"").trim();
+     const latest=rows.filter(r=>String(r.room||"").trim().toLocaleLowerCase("az")===cardRoom.toLocaleLowerCase("az")&&Number.isFinite(new Date(r.time).getTime())).sort((a,b)=>new Date(b.time)-new Date(a.time))[0];
+     if(!latest)continue;
+     const liveText=document.getElementById("pill"+slot)?.textContent||"";
+     const isLive=liveText==="CANLI";
+     if(isLive)continue; // Never overwrite fresh BLE readings with older cloud values.
+     const temp=document.getElementById("temp"+slot),hum=document.getElementById("hum"+slot),batt=document.getElementById("batt"+slot),seen=document.getElementById("seen"+slot),pill=document.getElementById("pill"+slot);
+     if(temp)temp.innerHTML=Number(latest.temp).toFixed(2)+'<small> °C</small>';
+     if(hum)hum.textContent=Number(latest.hum)+'%';
+     if(batt)batt.textContent=formatBatteryDisplay(latest.batt);
+     if(seen)seen.textContent="Bulud ölçməsi: "+new Date(latest.time).toLocaleTimeString("az-AZ");
+     if(pill){pill.textContent="BULUD";pill.classList.remove("live");}
+   }
+ }
+ async function loadCloudReadings(){
+   if(!cloudClient)return;
+   const {data,error}=await cloudClient.from("sensor_readings").select("room,temperature,humidity,battery_mv,recorded_at").order("recorded_at",{ascending:false}).limit(1000);
+   if(error){setCloudStatus(false,"☁️ Bulud oxunuşu alınmadı",error.message);return;}
+   const existing=historyRows();
+   const seen=new Set(existing.map(r=>[String(r.room||"").trim().toLocaleLowerCase("az"),new Date(r.time).getTime(),Number(r.temp).toFixed(2),Number(r.hum).toFixed(2)].join("|")));
+   let added=0,unmapped=0;
+   for(const x of (data||[]).slice().reverse()){
+     const parsedTime=new Date(x.recorded_at);
+     if(!Number.isFinite(parsedTime.getTime()))continue;
+     const time=parsedTime.toISOString();
+     const room=String(x.room||"").trim();
+     const temperature=Number(x.temperature),humidity=Number(x.humidity);
+     if(!room||!Number.isFinite(temperature)||!Number.isFinite(humidity))continue;
+     const key=[room.toLocaleLowerCase("az"),parsedTime.getTime(),temperature.toFixed(2),humidity.toFixed(2)].join("|");
+     if(seen.has(key))continue;
+     const slot=cloudSlotForRoom(room);
+     if(slot<0)unmapped++;
+     existing.push({time,slot,device:"Supabase cloud",room,temp:temperature,hum:humidity,batt:Number(x.battery_mv||0),cloud:true});
+     seen.add(key);added++;
+   }
+   if(added){
+     existing.sort((a,b)=>new Date(a.time)-new Date(b.time));
+     saveHistory(existing);
+   }
+   renderHistory();renderCharts();renderMetrics();renderRoomStats();renderStorageInfo();renderProDashboard();renderAlerts();renderCloudLatestToCards();
+   const unmappedText=unmapped?" · "+unmapped+" qeydin otağı sensor kartına uyğunlaşdırılmayıb":"";
+   setCloudStatus(true,"☁️ Buludla əlaqə var",(data||[]).length+" bulud qeydi oxundu"+(added?" · "+added+" yeni qeyd sinxronlaşdırıldı":" · yeni qeyd yoxdur")+unmappedText+". Qrafiklər seçilmiş dövrü göstərir.");
+ }
+ if(cloudClient){loadCloudReadings();window.setInterval(loadCloudReadings,5000);}
+
+ function showValue(slot,device,value){
+  if(!value||value.byteLength<5){$("#seen"+slot).textContent="Sensor məlumat paketi uyğun deyil";return}
+  const temp=value.getInt16(0,true)/100,hum=value.getUint8(2),batt=value.getUint16(3,true),date=new Date();
+  $("#temp"+slot).innerHTML=temp.toFixed(2)+'<small> °C</small>';$("#hum"+slot).textContent=hum+"%";$("#batt"+slot).textContent=formatBatteryDisplay(batt);$("#seen"+slot).textContent="Son ölçmə: "+date.toLocaleTimeString("az-AZ");$("#pill"+slot).textContent="CANLI";$("#pill"+slot).classList.add("live");
+  const room=document.querySelector('[data-slot="'+slot+'"] .roomselect').value;
+  const mac=$("#mac"+slot).value.trim();const rows=historyRows();rows.push({time:date.toISOString(),slot,device:device.name||"LYWSD03MMC",mac,room,temp,hum,batt});saveHistory(rows);renderHistory();renderCharts();renderMetrics();renderRoomStats();renderAlerts();renderStorageInfo();renderProDashboard();checkAutomationReading({room,temp,hum,batt,slot});
+   sendCloudReading({time:date.toISOString(),slot,device:device.name||"LYWSD03MMC",mac,room,temp,hum,batt});
+ }
+ document.querySelectorAll(".connect").forEach(b=>b.addEventListener("click",()=>{const slot=Number(b.dataset.slot);if(connections[slot]){disconnectSlot(slot);b.textContent="Sensor seç və qoş";b.classList.add("primary");b.onclick=null}else{reconnectEnabled[slot]=true;connectSlot(slot)}}));
+ $("#connectNext").addEventListener("click",()=>{const slot=connections.findIndex(c=>!c);if(slot<0){toast("Üç kartın hamısı qoşulub.");return}connectSlot(slot)});
+ $("#disconnectAll").addEventListener("click",()=>{connections.forEach((c,i)=>{reconnectEnabled[i]=false;if(reconnectTimers[i]){clearTimeout(reconnectTimers[i]);reconnectTimers[i]=null}if(c)disconnectSlot(i)});document.querySelectorAll(".connect").forEach(b=>{b.disabled=false;b.textContent="Sensor seç və qoş";b.classList.add("primary")});toast("Bütün Bluetooth əlaqələri kəsildi.")});
+ window.nurlanHomeRestoreKnownDevices=restoreKnownDevices;
+ setTimeout(()=>{runBleDiagnostics(false);restoreKnownDevices()},700);
+ $("#bleDiagButton").addEventListener("click",async()=>{await runBleDiagnostics(true);await restoreKnownDevices()});
+  $("#bleManualReconnect").addEventListener("click",()=>{const slot=Number($("#bleReconnectSlot").value);if(connections[slot]){toast("Bu sensor artıq qoşulub.");return}if(reconnectTimers[slot]){clearTimeout(reconnectTimers[slot]);reconnectTimers[slot]=null}reconnectEnabled[slot]=true;connectSlot(slot)});
+ async function runBleDiagnostics(showToast){
+  const out=$("#bleDiagResult"),api=!!navigator.bluetooth,getFn=!!(navigator.bluetooth&&typeof navigator.bluetooth.getDevices==="function"),map=readDeviceSlots(),saved=[0,1,2].filter(i=>!!map[String(i)]).length;
+  const lines=["Təhlükəsiz bağlantı (HTTPS): "+(window.isSecureContext?"Bəli":"Xeyr"),"Web Bluetooth API: "+(api?"mövcuddur":"yoxdur"),"getDevices(): "+(getFn?"mövcuddur":"bu brauzerdə yoxdur"),"Bu brauzerdə yadda saxlanmış slotlar: "+saved+"/3"];
+  if(api&&typeof navigator.bluetooth.getAvailability==="function"){try{lines.push("Bluetooth əlçatanlığı: "+(await navigator.bluetooth.getAvailability()?"Bəli":"Xeyr / bloklanıb"))}catch(e){lines.push("Bluetooth əlçatanlığı: yoxlanmadı ("+(e.name||"xəta")+")")}}
+  if(navigator.permissions&&navigator.permissions.query){try{const p=await navigator.permissions.query({name:"bluetooth"});lines.push("Bluetooth icazə vəziyyəti: "+p.state)}catch(e){lines.push("Bluetooth icazə vəziyyəti: brauzer bu sorğunu dəstəkləmir")}}else lines.push("Bluetooth icazə vəziyyəti: Permissions API dəstəklənmir");
+  if(getFn){try{const ds=await navigator.bluetooth.getDevices();const savedIds=Object.values(map);const matches=ds.filter(d=>savedIds.includes(d.id)).length;lines.push("Əvvəl icazə verilmiş cihazlar: "+ds.length,"Yadda saxlanmış cihaz uyğunluğu: "+matches+"/3");}catch(e){lines.push("getDevices() xətası: "+(e.name||"Xəta")+" — "+(e.message||"detal yoxdur"))}}
+  lines.push("Qeyd: cihaz ID-ləri gizli saxlanılır; MAC ünvanı brauzerdən oxunmur.");
+  if(out)out.textContent=lines.join("\n");
+  if(showToast)toast("Bluetooth diaqnostikası tamamlandı.");
+ }
+ $("#clearHistory").addEventListener("click",()=>{if(confirm("Əvvəlcə JSON ehtiyat nüsxəsi yaratmısan? Bu əməliyyat bu brauzerdə saxlanmış real ölçmələrin hamısını siləcək. Davam edilsin?")){localStorage.removeItem(storageKey);storageWarningShown=false;renderHistory();renderCharts();renderMetrics();renderRoomStats();renderAlerts();renderStorageInfo();toast("Real tarixçə silindi.")}});
+ $("#backupBtn").addEventListener("click",backupJson);$("#backupBtn2").addEventListener("click",backupJson);$("#importBtn").addEventListener("click",()=>$("#importFile").click());$("#importBtn2").addEventListener("click",()=>$("#importFile").click());$("#importFile").addEventListener("change",e=>{if(e.target.files&&e.target.files[0])restoreJson(e.target.files[0]);e.target.value=""});$("#saveRules").addEventListener("click",()=>{saveRules();renderProDashboard()});
+ $("#askHome").addEventListener("click",()=>{$("#homeAnswer").textContent=answerHome($("#homeQuestion").value||"Son 24 saatın xülasəsi")});
+ document.querySelectorAll("[data-question]").forEach(b=>b.addEventListener("click",()=>{$("#homeQuestion").value=b.dataset.question;$("#homeAnswer").textContent=answerHome(b.dataset.question)}));
+ $("#dailyReport").addEventListener("click",renderDailyReport);
+ $("#nightMode").addEventListener("click",()=>{document.body.classList.toggle("night-mode");const on=document.body.classList.contains("night-mode");$("#nightMode").textContent=on?"☀️ Gecə rejimini söndür":"🌙 Gecə rejimini aktiv et";localStorage.setItem("nurlanHomeNightMode",on?"1":"0")});
+ $("#saveAutomation").addEventListener("click",()=>{const a={room:$("#autoRoom").value,metric:$("#autoMetric").value,op:$("#autoOperator").value,value:Number($("#autoValue").value),minutes:Number($("#autoMinutes").value)};if(!Number.isFinite(a.value)){toast("Həddi yoxla.");return}localStorage.setItem("nurlanHomeAutomation",JSON.stringify(a));renderAutomation();toast("Qayda saxlanıldı.")});$("#notifyPermission").addEventListener("click",requestNotificationPermission);$("#testSound").addEventListener("click",()=>{playAlertSound();toast("Qısa səs sınağı.")});$("#enableSound").addEventListener("change",()=>{const rules=getRules();rules.sound=$("#enableSound").checked;localStorage.setItem(settingsKey,JSON.stringify(rules));if(rules.sound)playAlertSound()});$("#enableNotifications").addEventListener("change",()=>{const rules=getRules();rules.notifications=$("#enableNotifications").checked;localStorage.setItem(settingsKey,JSON.stringify(rules));if(rules.notifications)requestNotificationPermission();renderNotificationStatus()});$("#chartRange").addEventListener("change",()=>{chartHours=$("#chartRange").value==="all"?"all":Number($("#chartRange").value);renderCharts();renderMetrics();renderRoomStats()});document.querySelectorAll(".chart-room-toggle").forEach(el=>el.addEventListener("change",renderCharts));$("#exportBtn").addEventListener("click",()=>{const rows=historyRows();if(!rows.length){toast("İxrac ediləcək real ölçmə yoxdur.");return}const csv=[["Vaxt","Otaq","Cihaz","MAC","Temperatur_C","Rutubet_faiz","Batareya_mV"],...rows.map(r=>[new Date(r.time).toLocaleString("az-AZ"),r.room,r.device,r.mac||"",r.temp,r.hum,r.batt])].map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n");const url=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}));const a=document.createElement("a");a.href=url;a.download="nurlan-home-real-sensor-history.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+ document.querySelectorAll(".roomselect").forEach(el=>el.addEventListener("change",()=>{saveRoomSettings();renderHistory();renderCharts();renderMetrics();renderRoomStats();renderAlerts()}));document.querySelectorAll(".macbox input").forEach(el=>el.addEventListener("change",()=>{const slot=Number(el.id.replace("mac",""));const rows=historyRows();rows.forEach(r=>{if(Number(r.slot)===slot)r.mac=el.value.trim()});saveHistory(rows);saveRoomSettings();renderHistory();toast("MAC qeydi saxlanıldı.")}));loadRoomSettings();const savedRules=getRules();$("#tempLow").value=savedRules.tempLow;$("#tempHigh").value=savedRules.tempHigh;$("#humLow").value=savedRules.humLow;$("#humHigh").value=savedRules.humHigh;$("#enableSound").checked=savedRules.sound!==false;$("#pageTime").textContent="Səhifə açılıb: "+stamp();renderHistory();renderCharts();renderMetrics();renderRoomStats();renderAlerts();renderStorageInfo();renderNotificationStatus();updateCount();renderProDashboard();renderAutomation();if(localStorage.getItem("nurlanHomeNightMode")==="1"){document.body.classList.add("night-mode");$("#nightMode").textContent="☀️ Gecə rejimini söndür"}if("serviceWorker" in navigator){window.addEventListener("load",async()=>{try{const reg=await navigator.serviceWorker.register("./sw.js?v=SMART-HOME-17",{updateViaCache:"none"});await reg.update()}catch(e){console.warn("Service worker yenilənmədi",e)}})}window.addEventListener("resize",renderCharts);
+})();
+
+// JARVIS UI v2: resilient local analytics based only on recorded sensor readings.
+(function(){
+ const $=id=>document.getElementById(id);
+ const STORE="nurlanHomeMultiRealReadings";
+ let lastAnswer="",selectedRoom="Yataq otağı",busy=false;
+ const roomBtns=()=>[...document.querySelectorAll(".j-room[data-room]")].filter(b=>b.dataset.room!=="Dəhliz");
+ function readRows(){
+  try{
+   const raw=JSON.parse(localStorage.getItem(STORE)||"[]");
+   return Array.isArray(raw)?raw.map(r=>({...r,time:(typeof r.time==="number"?r.time:Date.parse(r.time)),temp:Number(r.temp),hum:Number(r.hum),slot:Number(r.slot)}))
+    .filter(r=>Number.isFinite(r.time)&&Number.isFinite(r.temp)&&r.temp>-40&&r.temp<85):[];
+  }catch(e){return []}
+ }
+ function cards(){
+  return [...document.querySelectorAll("#sensorCards .sensor")].slice(0,3).map((el,i)=>({
+   slot:i,el,room:el.querySelector(".roomselect")?.value||["Mətbəx","Yataq otağı","Qonaq otağı"][i]
+  }));
+ }
+ function snapshot(){
+  const all=readRows(), now=Date.now();
+  return cards().map(c=>{
+   let own=all.filter(r=>Number.isFinite(r.slot)&&r.slot===c.slot).sort((a,b)=>b.time-a.time);
+   if(!own.length)own=all.filter(r=>String(r.room||"").trim().toLowerCase()===c.room.toLowerCase()).sort((a,b)=>b.time-a.time);
+   const r=own[0]||null;
+   const history=own.slice().sort((a,b)=>a.time-b.time);
+   const age=r?Math.max(0,now-r.time):Infinity;
+   const fresh=age<=30*60*1000;
+   const temp=r&&Number.isFinite(r.temp)?r.temp:null;
+   const hum=r&&Number.isFinite(r.hum)&&r.hum>=0&&r.hum<=100?r.hum:null;
+   const prev=history.length>=4?history.slice(-6,-3):history.slice(0,Math.max(0,history.length-1));
+   const recent=history.slice(-3);
+   const avg=a=>a.length?a.reduce((sum,x)=>sum+x.temp,0)/a.length:null;
+   const delta=prev.length&&recent.length?avg(recent)-avg(prev):null;
+   return {slot:c.slot,room:c.room,temp,hum,time:r?.time||0,age,fresh,history,delta,count:own.length};
+  });
+ }
+ function fmtAge(ms){
+  if(!Number.isFinite(ms))return "ölçmə yoxdur";
+  const min=Math.floor(ms/60000);
+  if(min<1)return "indi";
+  if(min<60)return min+" dəq əvvəl";
+  const h=Math.floor(min/60);
+  return h<24?h+" saat əvvəl":Math.floor(h/24)+" gün əvvəl";
+ }
+ function comfort(x){
+  if(x.temp===null)return {label:"MƏLUMAT YOXDUR",cls:"unknown"};
+  if(x.temp<18)return {label:"SƏRİN",cls:"cool"};
+  if(x.temp>27)return {label:"İSTİ",cls:"hot"};
+  if(x.hum!==null&&x.hum>65)return {label:"RÜTUBƏT YÜKSƏK",cls:"humid"};
+  if(x.hum!==null&&x.hum<30)return {label:"HAVA QURU",cls:"dry"};
+  if(x.temp>=20&&x.temp<=26&&(x.hum===null||(x.hum>=30&&x.hum<=60)))return {label:"RAHAT ZONA",cls:"good"};
+  return {label:"İZLƏNİLMƏLİ",cls:"watch"};
+ }
+ function setOrb(text,state){
+  const t=$("jOrbText");if(t)t.textContent=text;
+  const orb=$("jOrb");if(orb)orb.classList.toggle("thinking",state==="thinking");
+ }
+ function render(){
+  const a=snapshot(),valid=a.filter(x=>x.temp!==null),h=a.filter(x=>x.hum!==null);
+  a.forEach((x,i)=>{
+   const t=$("jTemp"+(i+1)),hu=$("jHum"+(i+1)),st=$("jState"+(i+1));
+   if(t)t.textContent=x.temp===null?"—°":x.temp.toFixed(1)+"°";
+   if(hu)hu.textContent=x.hum===null?"Rütubət —%":"Rütubət "+Math.round(x.hum)+"%";
+   if(st){const c=comfort(x);st.textContent=x.temp===null?"SENSOR GÖZLƏNİLİR":(!x.fresh?"KÖHNƏ ÖLÇMƏ":c.label);st.dataset.state=c.cls;}
+   const btn=roomBtns().find(b=>b.dataset.room===x.room);
+   if(btn){btn.classList.toggle("j-stale",x.temp!==null&&!x.fresh);btn.title=x.temp===null?"Bu otaq üçün saxlanmış ölçmə yoxdur":"Son ölçmə: "+fmtAge(x.age);}
+  });
+  const avg=arr=>arr.length?arr.reduce((s,x)=>s+x,0)/arr.length:null;
+  if($("jActive"))$("jActive").textContent=valid.filter(x=>x.fresh).length+" / 3";
+  if($("jAvgTemp"))$("jAvgTemp").textContent=avg(valid.map(x=>x.temp))===null?"—°":avg(valid.map(x=>x.temp)).toFixed(1)+"°";
+  if($("jAvgHum"))$("jAvgHum").textContent=h.length?Math.round(avg(h.map(x=>x.hum)))+"%":"—%";
+  const live=$("jLive");
+  if(live){live.textContent=valid.length?(valid.filter(x=>x.fresh).length+" / 3 OTAQDA YENİ ÖLÇMƏ"):"● ÖLÇMƏ GÖZLƏNİLİR";live.classList.toggle("j-live-warn",valid.some(x=>!x.fresh));}
+  if($("jStatusText"))$("jStatusText").textContent=valid.length
+   ?valid.length+" otaq üçün lokal tarixçədə məlumat var. "+valid.filter(x=>x.fresh).length+" otağın ölçməsi son 30 dəqiqədə yenilənib. Son məlumat: "+fmtAge(Math.min(...valid.map(x=>x.age)))+"."
+   :"Hələ bu brauzerdə saxlanmış real ölçmə tapılmadı. Əvvəl BLE sensorlarına qoşul və bir neçə ölçmənin qeydə alınmasını gözlə.";
+  const insight=buildInsight(a);
+  if($("jInsight"))$("jInsight").textContent=insight;
+  if($("jActive"))$("jActive").title=valid.filter(x=>x.fresh).length+" təzə ölçmə";
+  return a;
+ }
+ function buildInsight(a){
+  const v=a.filter(x=>x.temp!==null);
+  if(!v.length)return "Analiz üçün real ölçmə lazımdır. Sensorlara qoşulduqdan sonra temperatur, rütubət, otaqlar arası fərq və tarixçə trendi qiymətləndiriləcək.";
+  const out=[];
+  const hottest=[...v].sort((x,y)=>y.temp-x.temp)[0],coldest=[...v].sort((x,y)=>x.temp-y.temp)[0];
+  out.push("Ən isti: "+hottest.room+" "+hottest.temp.toFixed(1)+"°C.");
+  if(v.length>1)out.push("Otaqlar arası fərq: "+(hottest.temp-coldest.temp).toFixed(1)+"°C.");
+  const high=v.filter(x=>x.hum!==null&&x.hum>65),low=v.filter(x=>x.hum!==null&&x.hum<30);
+  if(high.length)out.push("Rütubəti yüksək olan: "+high.map(x=>x.room+" ("+Math.round(x.hum)+"%)").join(", ")+". Uzun müddət davam edərsə havalandırmanı və kondensasiya ehtimalını yoxla.");
+  if(low.length)out.push("Quru hava ehtimalı: "+low.map(x=>x.room+" ("+Math.round(x.hum)+"%)").join(", ")+".");
+  const trending=v.filter(x=>x.delta!==null&&Math.abs(x.delta)>=0.7);
+  if(trending.length)out.push("Son qeydlərdə trend: "+trending.map(x=>x.room+" "+(x.delta>0?"+" : "")+x.delta.toFixed(1)+"°C").join(", ")+".");
+  const stale=v.filter(x=>!x.fresh);
+  if(stale.length)out.push("Köhnə ölçmə: "+stale.map(x=>x.room+" ("+fmtAge(x.age)+")").join(", ")+". Canlı vəziyyət kimi qəbul etmə.");
+  if(!high.length&&!low.length&&v.every(x=>x.hum===null))out.push("Rütubət məlumatı yoxdur; nəticə yalnız temperatur üçündür.");
+  out.push("Bu, lokal qayda əsaslı təhlildir; tibbi/peşəkar ölçmə deyil və cihazları özü idarə etmir.");
+  return out.join(" ");
+ }
+ function answer(q){
+  const a=render(),v=a.filter(x=>x.temp!==null),low=String(q||"").toLocaleLowerCase("az");
+  if(!v.length)return "Hələ real ölçmə tapmadım. BLE panelində sensorlara qoşul, bağlantı aktiv qalsın və ölçmə tarixçəsi yarandıqdan sonra yenidən soruş.";
+  if(low.includes("köhn")||low.includes("yenilən")||low.includes("canlı")||low.includes("neçə dəq")||low.includes("son ölçmə")){
+   return a.map(x=>x.room+": "+(x.temp===null?"ölçmə yoxdur":x.temp.toFixed(1)+"°C"+(x.hum===null?"":", "+Math.round(x.hum)+"%")+", "+fmtAge(x.age)+(x.fresh?" (təzə)":" (köhnə)"))).join("; ")+".";
+  }
+  if(low.includes("trend")||low.includes("dəyiş")||low.includes("artıb")||low.includes("azalıb")||low.includes("tarixçə")){
+   const lines=v.map(x=>x.room+": "+(x.delta===null?"trend üçün kifayət qədər ölçmə yoxdur":(x.delta>0?"orta temperatur yüksəlib ":"orta temperatur düşüb ")+Math.abs(x.delta).toFixed(1)+"°C; "+x.count+" qeyd"));
+   return lines.join(". ")+". Müqayisə son qeydlərlə əvvəlki qeydlər arasındadır, uzunmüddətli proqnoz deyil.";
+  }
+  if(low.includes("rütub")||low.includes("rutub")||low.includes("nəm")||low.includes("nem")){
+   const h=a.filter(x=>x.hum!==null);
+   if(!h.length)return "Tarixçədə oxuna bilən rütubət ölçməsi yoxdur.";
+   return h.map(x=>x.room+": "+Math.round(x.hum)+"% ("+(x.hum>65?"yüksək tərəfdə":x.hum<30?"aşağı tərəfdə":"ümumən orta diapazonda")+")").join("; ")+". Uzunmüddətli yüksək rütubət kondensasiya və kif riskini artıra bilər; tək ölçmə ilə diaqnoz qoymaq olmaz.";
+  }
+  if(low.includes("ən isti")||low.includes("isti otaq")||low.includes("temperatur")||low.includes("istilik")||low.includes("sərin")){
+   const sorted=[...v].sort((x,y)=>x.temp-y.temp),hi=sorted[sorted.length-1],lo=sorted[0];
+   let msg="Ən isti otaq "+hi.room+" — "+hi.temp.toFixed(1)+"°C.";
+   if(v.length>1) msg+=" Ən sərin otaq "+lo.room+" — "+lo.temp.toFixed(1)+"°C. Fərq "+(hi.temp-lo.temp).toFixed(1)+"°C-dir.";
+   if(hi.temp>27) msg+=" İsti otaqda günəş düşməsi, pəncərə və havalandırmanı yoxlamaq olar.";
+   else if(hi.temp<18) msg+=" Otaq sərin görünür; ölçmənin təzəliyini də yoxla.";
+   else msg+=" Temperatur göstəricisi təkbaşına rahatlıq hissini tam müəyyən etmir.";
+   return msg;
+  }
+  if(low.includes("məsləh")||low.includes("meslehet")||low.includes("nə edim")||low.includes("ne edim")||low.includes("yaxşılaşdır")||low.includes("rahat")){
+   const tips=[];
+   v.forEach(x=>{if(x.temp>27)tips.push(x.room+": temperatur yüksəkdir ("+x.temp.toFixed(1)+"°C); kölgələnmə və havalandırmanı yoxla.");else if(x.temp<18)tips.push(x.room+": temperatur aşağıdır ("+x.temp.toFixed(1)+"°C); pəncərə/istilik mənbəyini yoxla.");if(x.hum!==null&&x.hum>65)tips.push(x.room+": rütubət "+Math.round(x.hum)+"%-dir; qısa havalandırma və nəm mənbələrini yoxlamaq faydalı ola bilər.");if(x.hum!==null&&x.hum<30)tips.push(x.room+": rütubət aşağıdır ("+Math.round(x.hum)+"%); ölçməni təkrar yoxla.");if(!x.fresh)tips.push(x.room+": ölçmə köhnədir, əvvəl sensoru yenilə.");});
+   return (tips.length?tips.join(" "):"Mövcud göstəricilərdə aydın ekstremal temperatur/rütubət görünmür. Bir neçə ölçmə boyunca izləmək və otaqlar arası fərqi müqayisə etmək daha faydalıdır.")+" Mən hələ kondisioneri, lampanı və digər cihazları avtomatik idarə etmirəm.";
+  }
+  if(low.includes("evin vəziyyət")||low.includes("ümumi")||low.includes("təhlil")||low.includes("analiz")||low.includes("hesabat")||low.includes("xülasə")){
+   return "EVİN SENSOR HESABATI: "+buildInsight(a)+" Ölçməsi olan otaqlar: "+v.length+"/3. Tarixçə sayı: "+v.reduce((s,x)=>s+x.count,0)+".";
+  }
+  if(low.includes("salam"))return "Salam! Mən JARVIS-in lokal analitika moduluyam. Temperatur, rütubət, otaqlar arası fərq, son ölçmələr və trend barədə soruşa bilərsən.";
+  return "Hazırda "+v.length+" otaq üçün real temperatur ölçməsi var. "+v.map(x=>x.room+": "+x.temp.toFixed(1)+"°C"+(x.hum===null?"":", "+Math.round(x.hum)+"% rütubət")+", "+fmtAge(x.age)).join("; ")+". İstəsən soruş: “rütubət necədir?”, “trend necədir?”, “ən isti otaq hansıdır?” və ya “nə məsləhət görürsən?”.";
+ }
+ function say(text){
+  if(!("speechSynthesis" in window)){setOrb("Bu brauzer səsli oxunu dəstəkləmir; mətni ekranda oxuya bilərsən.");return}
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="az-AZ";u.rate=.94;u.pitch=1.02;
+  const voices=speechSynthesis.getVoices();const az=voices.find(v=>/^az/i.test(v.lang));if(az)u.voice=az;
+  speechSynthesis.speak(u);
+ }
+ function send(q){
+  q=String(q||"").trim();if(!q||busy)return;
+  const chat=$("jChat");if(!chat)return;
+  busy=true;
+  const user=document.createElement("div");user.className="j-msg user";user.textContent=q;chat.appendChild(user);
+  const typing=document.createElement("div");typing.className="j-msg j-typing";typing.textContent="Ölçmələri yoxlayıram…";chat.appendChild(typing);chat.scrollTop=chat.scrollHeight;
+  setOrb("Saxlanmış real ölçmələri, otaqlar arası fərqi və tarixçə trendini yoxlayıram…","thinking");
+  window.setTimeout(()=>{
+   try{lastAnswer=answer(q);typing.classList.remove("j-typing");typing.textContent=lastAnswer;setOrb(lastAnswer); }
+   catch(err){typing.textContent="Analiz zamanı xəta baş verdi. Səhifəni yenilə və yenidən sına.";setOrb("Analiz modulu xəta aldı. Səhifəni yenilə.");console.error("JARVIS:",err);}
+   const input=$("jQuestion");if(input)input.value="";
+   chat.scrollTop=chat.scrollHeight;busy=false;
+  },180);
+ }
+ function init(){
+  const form=$("jAskForm");
+  if(form)form.addEventListener("submit",e=>{e.preventDefault();send($("jQuestion")?.value||"")});
+  document.querySelectorAll("[data-jq]").forEach(b=>b.addEventListener("click",()=>send(b.dataset.jq)));
+  roomBtns().forEach(b=>b.addEventListener("click",()=>{
+   roomBtns().forEach(x=>x.classList.remove("selected"));b.classList.add("selected");selectedRoom=b.dataset.room;
+   const inp=$("jQuestion");if(inp)inp.value=selectedRoom+" otağında vəziyyət necədir?";
+   setOrb(selectedRoom+" seçildi. Otağın temperaturu, rütubəti və son ölçmə vaxtını soruşa bilərsən.");
+  }));
+  if($("jSummary"))$("jSummary").addEventListener("click",()=>send("Evin vəziyyətini təhlil et"));
+  if($("jRefresh"))$("jRefresh").addEventListener("click",()=>{render();setOrb("Lokal sensor tarixçəsi yeniləndi. "+buildInsight(snapshot()));});
+  if($("jSpeakSummary"))$("jSpeakSummary").addEventListener("click",()=>say(lastAnswer||answer("Evin vəziyyətini təhlil et")));
+  if($("jVoice"))$("jVoice").addEventListener("click",()=>{
+   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+   if(!SR){setOrb("Bu brauzerdə səsdən mətnə çevirmə dəstəklənmir. Sualı yazaraq istifadə et.");return}
+   try{
+    const rec=new SR();rec.lang="az-AZ";rec.interimResults=false;rec.maxAlternatives=1;
+    const orb=$("jOrb");if(orb)orb.classList.add("listening");setOrb("Dinləyirəm… sualını de.");
+    rec.onresult=e=>send(e.results[0][0].transcript);
+    rec.onerror=e=>setOrb("Səs tanınmadı ("+(e.error||"xəta")+"). İcazəni yoxla və ya sualı yaz.");
+    rec.onend=()=>{if(orb)orb.classList.remove("listening")};
+    rec.start();
+   }catch(e){setOrb("Mikrofon açıla bilmədi. Brauzer icazəsini yoxla və sualı yaz.");}
+  });
+  render();window.addEventListener("storage",render);window.setInterval(render,15000);
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
+})();
+
+
+// SMART-HOME-17: reliable JARVIS quick-question fallback.
+(function(){
+ const root=document.getElementById("jarvisCore");
+ if(!root||root.dataset.resilientBound==="1")return;
+ root.dataset.resilientBound="1";
+ root.addEventListener("click",function(e){
+  const b=e.target.closest("button[data-jq]");
+  if(!b||!root.contains(b))return;
+  e.preventDefault();e.stopImmediatePropagation();
+  const input=document.getElementById("jQuestion"),form=document.getElementById("jAskForm");
+  if(input)input.value=b.getAttribute("data-jq");
+  if(form&&typeof form.requestSubmit==="function")form.requestSubmit();
+  else if(form)form.dispatchEvent(new Event("submit",{bubbles:true,cancelable:true}));
+ },true);
+})();
+
+// HOME TIME MACHINE: temporal playback + transparent change detection on recorded measurements only.
+(function(){const $=id=>document.getElementById(id);let range=24,idx=0,timer=null,events=[];const names=["Yataq otağı","Qonaq otağı","Mətbəx"];function getRows(){try{return JSON.parse(localStorage.getItem("nurlanHomeMultiRealReadings")||"[]").map(r=>({...r,time:(typeof r.time==="number"?r.time:Date.parse(r.time)),temp:Number(r.temp),hum:Number(r.hum)})).filter(r=>Number.isFinite(r.time)&&Number.isFinite(r.temp)).sort((a,b)=>a.time-b.time)}catch(e){return []}}function within(){const a=getRows();if(range==="all")return a;const cut=Date.now()-range*3600000;return a.filter(x=>x.time>=cut)}function room(r){return r.room||names[Number(r.slot)]||"Naməlum otaq"}function fmt(t){return new Date(t).toLocaleString("az-AZ",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}function draw(){const a=within();$("tmCount").textContent=a.length.toLocaleString("az-AZ");$("tmDataState").textContent=a.length?"● "+a.length+" ÖLÇMƏ TAPILDI":"● TARİXÇƏ GÖZLƏNİLİR";$("tmSlider").max=Math.max(0,a.length-1);idx=Math.min(idx,Math.max(0,a.length-1));$("tmSlider").value=idx;$("tmStart").textContent=a.length?fmt(a[0].time):"Başlanğıc";$("tmEnd").textContent=a.length?fmt(a[a.length-1].time):"Son ölçmə";const distinct=[...new Set(a.map(room))];$("tmRooms").textContent=distinct.length+" / 3";if(a.length){const temps=a.map(x=>x.temp);$("tmSwing").textContent=(Math.max(...temps)-Math.min(...temps)).toFixed(1)+"°C";showPoint()}else{$("tmCursorTemp").textContent="—°C";$("tmCursorDetail").textContent="Hələ real ölçmə yoxdur";$("tmCursorRoom").textContent="Sensorlara qoşul və tarixçə topla.";$("tmSwing").textContent="—";$("tmRoomBars").innerHTML="";$("tmExplain").textContent="Tarixçə boşdur və ya seçilmiş dövrdə ölçmə yoxdur. BLE sensorlarına qoşulandan sonra yenidən yoxla."}if(!events.length)renderEvents([])}function showPoint(){const a=within();if(!a.length)return;idx=Math.max(0,Math.min(idx,a.length-1));const r=a[idx];$("tmCursorTemp").textContent=r.temp.toFixed(1)+"°C";$("tmCursorLabel").textContent=fmt(r.time);$("tmCursorDetail").textContent=Number.isFinite(r.hum)?"Rütubət "+Math.round(r.hum)+"%"+(r.batt?" · Batareya "+r.batt+" mV":""):"Rütubət qeydi yoxdur";$("tmCursorRoom").textContent=room(r)+" · "+(idx+1)+" / "+a.length;const by=names.map(n=>{const rows=a.filter(x=>room(x)===n);return {name:n,avg:rows.length?rows.reduce((s,x)=>s+x.temp,0)/rows.length:null,count:rows.length}});$("tmRoomBars").innerHTML=by.map(x=>'<div class="tm-barrow"><span>'+x.name+'</span><div class="tm-track"><div class="tm-fill" style="width:'+(x.avg===null?0:Math.max(0,Math.min(100,(x.avg+5)/45*100)))+'%"></div></div><b>'+(x.avg===null?"—":x.avg.toFixed(1)+"°")+'</b></div>').join("");}function renderEvents(list){const el=$("tmLog");if(!list.length){el.innerHTML='<div class="tm-event"><small>ANALİZ NƏTİCƏSİ</small>'+(within().length<2?"Müqayisə üçün kifayət qədər ölçmə yoxdur.":"Aşkar edilən ciddi dəyişiklik yoxdur. Bu, problem olmadığına zəmanət vermir.")+'</div>';return}el.innerHTML=list.slice(0,60).map(e=>'<div class="tm-event '+e.level+'"><small>'+fmt(e.time)+' · '+e.room+'</small>'+e.text+'</div>').join("")}function detect(){const a=within();events=[];const groups={};a.forEach(x=>(groups[room(x)]||(groups[room(x)]=[])).push(x));Object.keys(groups).forEach(n=>{const g=groups[n].sort((x,y)=>x.time-y.time);for(let i=1;i<g.length;i++){const p=g[i-1],c=g[i],dt=(c.time-p.time)/60000,dT=c.temp-p.temp,dH=Number.isFinite(c.hum)&&Number.isFinite(p.hum)?c.hum-p.hum:null;if(dt<=0||dt>360)continue;if(Math.abs(dT)>=2)events.push({time:c.time,room:n,level:Math.abs(dT)>=4?"alert":"warn",text:"Temperatur "+(dT>0?"+" :"")+dT.toFixed(1)+"°C dəyişib ("+Math.round(dt)+" dəqiqədə). Bu dəyişiklik sensorun yerinin dəyişməsi, pəncərə, günəş və ya istilik mənbəyi ilə əlaqəli ola bilər; səbəb təsdiqlənməyib."});if(dH!==null&&Math.abs(dH)>=12)events.push({time:c.time,room:n,level:Math.abs(dH)>=20?"alert":"warn",text:"Rütubət "+(dH>0?"+":"")+Math.round(dH)+" faiz bəndi dəyişib. Havalandırma və gündəlik fəaliyyət mümkün izahlardır, lakin sensor məlumatı səbəbi müəyyən etmir."});if(c.batt&&Number(c.batt)<2600)events.push({time:c.time,room:n,level:"warn",text:"Sensor batareyası "+c.batt+" mV göstərir; batareyanı yoxlamaq lazım ola bilər."})}});events.sort((x,y)=>y.time-x.time);$("tmExplain").textContent="Analiz "+a.length+" ölçməni yoxladı. Aşkarlama hədləri: temperaturda ≥2°C, rütubətdə ≥12 faiz bəndi; bunlar diaqnostika deyil, nəzərdən keçirmək üçün işarələrdir.";renderEvents(events)}function stop(){if(timer){clearInterval(timer);timer=null}$("tmPlay").textContent="▶ Tarixi canlandır"}document.querySelectorAll("[data-tm-range]").forEach(b=>b.addEventListener("click",()=>{stop();range=b.dataset.tmRange==="all"?"all":Number(b.dataset.tmRange);idx=0;document.querySelectorAll("[data-tm-range]").forEach(x=>x.classList.toggle("active",x===b));draw()}));$("tmSlider").addEventListener("input",e=>{stop();idx=Number(e.target.value);showPoint()});$("tmPrev").addEventListener("click",()=>{stop();idx=Math.max(0,idx-1);showPoint()});$("tmNext").addEventListener("click",()=>{stop();idx=Math.min(within().length-1,idx+1);showPoint()});$("tmPlay").addEventListener("click",()=>{if(timer){stop();return}if(within().length<2)return; if(idx>=within().length-1)idx=0;$("tmPlay").textContent="Ⅱ Dayandır";timer=setInterval(()=>{const a=within();idx++;if(idx>=a.length){stop();return} $("tmSlider").value=idx;showPoint()},650)});$("tmDetect").addEventListener("click",detect);$("tmExportEvents").addEventListener("click",()=>{if(!events.length)detect();const text="Nurlan Home — Hadisə hesabatı\nYaradılma: "+new Date().toLocaleString("az-AZ")+"\n\n"+(events.length?events.map(e=>fmt(e.time)+" | "+e.room+" | "+e.text).join("\n"):"Seçilmiş dövrdə hadisə aşkarlanmayıb və ya məlumat azdır.");const u=URL.createObjectURL(new Blob([text],{type:"text/plain;charset=utf-8"}));const a=document.createElement("a");a.href=u;a.download="nurlan-home-hadiseler.txt";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)});window.addEventListener("storage",draw);setInterval(draw,20000);draw()})();
+</script>
+</body>
+</html>
