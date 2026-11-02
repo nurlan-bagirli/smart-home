@@ -196,6 +196,7 @@ window.NURLAN_SUPABASE_KEY = "sb_publishable_2StXP3DE2Sccf8OPLgFZPw_xM5dYDiM";
  
  function renderHistory(){const rows=historyRows().slice(-100).reverse();const body=$("#historyBody");if(!rows.length){body.innerHTML='<tr><td colspan="6" class="empty">Hələ real ölçmə yoxdur. Sensor qoşulduqdan sonra məlumat burada görünəcək.</td></tr>';return}body.innerHTML=rows.map(r=>'<tr><td>'+safe(new Date(r.time).toLocaleString("az-AZ"))+'</td><td>'+safe(r.room)+'</td><td>'+safe(r.mac||"MAC daxil edilməyib")+'</td><td>'+Number(r.temp).toFixed(2)+' °C</td><td>'+Number(r.hum)+'%</td><td>'+Number(r.batt)+' mV</td></tr>').join("")}
  const chartHitPoints={};
+ const chartSelectedPoint={};
  function drawChart(canvasId,field){
   const canvas=$("#"+canvasId);if(!canvas)return;const ctx=canvas.getContext("2d");const dpr=window.devicePixelRatio||1;const w=canvas.clientWidth||300,h=canvas.clientHeight||210;canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
   const cutoff=chartHours==="all"?0:Date.now()-Number(chartHours)*60*60*1000;const data=historyRows().filter(r=>new Date(r.time).getTime()>=cutoff&&Number.isFinite(Number(r[field])));const muted=getComputedStyle(document.body).getPropertyValue("--muted").trim()||"#9aacc8";const pad={l:36,r:8,t:12,b:25};const cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;const points=[];
@@ -205,6 +206,18 @@ window.NURLAN_SUPABASE_KEY = "sb_publishable_2StXP3DE2Sccf8OPLgFZPw_xM5dYDiM";
   const times=data.map(r=>new Date(r.time).getTime()),tmin=Math.min(...times),tmax=Math.max(...times);
   for(let slot=0;slot<3;slot++){const toggle=document.querySelector('.chart-room-toggle[data-chart-slot="'+slot+'"]');if(toggle&&!toggle.checked)continue;const series=data.filter(r=>Number(r.slot)===slot).sort((a,b)=>new Date(a.time)-new Date(b.time));if(!series.length)continue;ctx.beginPath();series.forEach((r,i)=>{const time=new Date(r.time).getTime(),x=pad.l+(tmax===tmin?0.5:(time-tmin)/(tmax-tmin))*cw,y=pad.t+(max-Number(r[field]))/(max-min)*ch;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);points.push({x,y,row:r,slot})});ctx.strokeStyle=colors[slot];ctx.lineWidth=2.2;ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke()}
   chartHitPoints[canvasId]=points;
+  const selected=chartSelectedPoint[canvasId];
+  if(selected){
+   const hit=points.find(p=>p.slot===selected.slot&&new Date(p.row.time).getTime()===selected.time);
+   if(hit){
+    ctx.save();
+    ctx.setLineDash([4,4]);ctx.lineWidth=1.2;ctx.strokeStyle="#f8fbff";
+    ctx.beginPath();ctx.moveTo(hit.x,pad.t);ctx.lineTo(hit.x,pad.t+ch);ctx.moveTo(pad.l,hit.y);ctx.lineTo(w-pad.r,hit.y);ctx.stroke();
+    ctx.setLineDash([]);ctx.beginPath();ctx.arc(hit.x,hit.y,7,0,Math.PI*2);ctx.fillStyle=colors[hit.slot];ctx.fill();ctx.lineWidth=2.5;ctx.strokeStyle="#ffffff";ctx.stroke();
+    ctx.beginPath();ctx.arc(hit.x,hit.y,11,0,Math.PI*2);ctx.lineWidth=1;ctx.strokeStyle=colors[hit.slot];ctx.stroke();
+    ctx.restore();
+   }
+  }
   ctx.textAlign="left";ctx.fillStyle=muted;ctx.fillText(new Date(tmin).toLocaleTimeString("az-AZ",{hour:"2-digit",minute:"2-digit"}),pad.l,h-5);ctx.textAlign="right";ctx.fillText(new Date(tmax).toLocaleTimeString("az-AZ",{hour:"2-digit",minute:"2-digit"}),w-pad.r,h-5);
  }
  function bindChartTooltips(){
@@ -213,6 +226,8 @@ window.NURLAN_SUPABASE_KEY = "sb_publishable_2StXP3DE2Sccf8OPLgFZPw_xM5dYDiM";
    const selectPoint=e=>{const rect=canvas.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top,pts=chartHitPoints[id]||[];if(!pts.length)return;
     let best=null,score=Infinity;pts.forEach(p=>{const dx=p.x-x,dy=p.y-y,d=dx*dx+dy*dy*0.45;if(d<score){score=d;best=p}});
     if(!best)return;
+    chartSelectedPoint[id]={slot:best.slot,time:new Date(best.row.time).getTime()};
+    renderCharts();
     const r=best.row,room=safe(r.room||(["Mətbəx","Yataq otağı","Qonaq otağı"][best.slot]||"Otaq"));
     const date=new Date(r.time).toLocaleString("az-AZ",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
     const value=field==="temp"?Number(r.temp).toFixed(2)+" °C":field==="hum"?Number(r.hum)+" %":Number(r.batt)+" mV";
